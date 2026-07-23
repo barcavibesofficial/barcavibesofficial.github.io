@@ -1,72 +1,76 @@
-// ===============================
-// BarcaVibesOfficial
-// script.js - Part 1
-// ===============================
+import { db } from "./firebase.js";
+import {
+collection,
+addDoc,
+getDocs,
+orderBy,
+query,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-// Smooth Scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function (e) {
-        e.preventDefault();
+// Publish News
+window.publishNews = async function () {
 
-        const target = document.querySelector(this.getAttribute("href"));
+const title = document.getElementById("newsTitle").value;
+const category = document.getElementById("newsCategory").value;
+const image = document.getElementById("newsImage").value;
+const content = document.getElementById("newsContent").value;
 
-        if(target){
-            target.scrollIntoView({
-                behavior:"smooth"
-            });
-        }
-    });
-});
-
-// Header Shadow
-
-const header = document.querySelector("header");
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY > 60){
-
-        header.style.boxShadow =
-        "0 8px 25px rgba(0,0,0,.4)";
-
-    }else{
-
-        header.style.boxShadow="none";
-
-    }
-
-});
-
-// Fade Animation
-
-const cards=document.querySelectorAll(".card");
-
-const observer=new IntersectionObserver(entries=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.style.opacity="1";
-
-entry.target.style.transform="translateY(0)";
-
+if (!title || !content) {
+alert("Please fill all required fields.");
+return;
 }
 
+await addDoc(collection(db, "news"), {
+title,
+category,
+image,
+content,
+created: serverTimestamp()
 });
 
+alert("✅ News Published!");
+
+document.getElementById("newsTitle").value = "";
+document.getElementById("newsImage").value = "";
+document.getElementById("newsContent").value = "";
+};
+
+// Load News
+window.loadNews = async function () {
+
+const container = document.getElementById("newsContainer");
+
+if (!container) return;
+
+container.innerHTML = "";
+
+const q = query(collection(db, "news"), orderBy("created", "desc"));
+
+const snapshot = await getDocs(q);
+
+snapshot.forEach(doc => {
+
+const data = doc.data();
+
+container.innerHTML += `
+
+<div class="news-card">
+
+<img src="${data.image}" alt="">
+
+<h2>${data.title}</h2>
+
+<p><strong>${data.category}</strong></p>
+
+<p>${data.content}</p>
+
+</div>
+
+`;
+
 });
 
-cards.forEach(card=>{
+};
 
-card.style.opacity="0";
-card.style.transform="translateY(40px)";
-card.style.transition=".8s";
-
-observer.observe(card);
-
-});
-
-// Welcome
-
-console.log("Welcome to BarcaVibesOfficial");
+window.addEventListener("load", loadNews);
