@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Barca Vibes Official Admin</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header class="page-header">
+
+<h1>🔵🔴 Barca Vibes Official</h1>
+
+<p>Admin Dashboard</p>
+
+<a href="index.html" class="btn">🏠 Home</a>
+
+</header>
+
+
+<section class="container">
+
+<div class="card">
+
+<h2>📰 Publish News</h2>
+
+
+<input id="newsTitle" 
+placeholder="News title">
+
+
+<select id="newsCategory">
+
+<option>Breaking News</option>
+
+<option>Transfer News</option>
+
+<option>Match Update</option>
+
+<option>Club News</option>
+
+</select>
+
+
+<input id="newsImage"
+placeholder="Image URL">
+
+
+<textarea id="newsContent"
+placeholder="Write article here..."></textarea>
+
+
+<button onclick="publishNews()">
+🚀 Publish Article
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+collection,
+addDoc,
+serverTimestamp
+
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+
+window.publishNews = async function(){
+
+
+let title =
+document.getElementById("newsTitle").value;
+
+
+let category =
+document.getElementById("newsCategory").value;
+
+
+let image =
+document.getElementById("newsImage").value;
+
+
+let content =
+document.getElementById("newsContent").value;
+
+
+
+if(!title || !content){
+
+alert("Fill title and article");
+
+return;
+
+}
+
+
+
+await addDoc(collection(db,"news"),{
+
+title:title,
+
+category:category,
+
+image:image,
+
+content:content,
+
+created:serverTimestamp()
+
+});
+
+
+
+alert("✅ News Published Successfully");
+
+
+document.getElementById("newsTitle").value="";
+
+document.getElementById("newsImage").value="";
+
+document.getElementById("newsContent").value="";
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
