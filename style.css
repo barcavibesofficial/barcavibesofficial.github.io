@@ -1,0 +1,485 @@
+/* =========================
+   BarcaVibesOfficial
+   Style.css - Part 1
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#081320;
+    color:#ffffff;
+    line-height:1.6;
+}
+
+/* Header */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+    background:rgba(7,20,37,.95);
+    backdrop-filter:blur(12px);
+    border-bottom:2px solid #A50044;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#FDB913;
+    cursor:pointer;
+}
+
+.logo:hover{
+    color:#ffffff;
+    transition:.3s;
+}
+
+/* Navigation */
+
+nav{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+nav a{
+    color:#ffffff;
+    text-decoration:none;
+    font-size:17px;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#FDB913;
+}
+
+/* Hero */
+
+.hero{
+    min-height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:40px 20px;
+    background:
+    linear-gradient(rgba(8,19,32,.75),rgba(8,19,32,.85)),
+    url("https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero h1{
+    font-size:58px;
+    color:#FDB913;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:700px;
+    font-size:20px;
+    color:#dddddd;
+    margin-bottom:35px;
+}
+
+/* Buttons */
+
+.buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.btn,
+.btn2{
+    text-decoration:none;
+    padding:15px 32px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn{
+    background:#A50044;
+    color:white;
+}
+
+.btn:hover{
+    background:#c70055;
+    transform:translateY(-3px);
+}
+
+.btn2{
+    background:#004D98;
+    color:white;
+}
+
+.btn2:hover{
+    background:#0066cc;
+    transform:translateY(-3px);
+}
+/* =========================
+   Homepage Sections
+========================= */
+
+.preview{
+    width:90%;
+    max-width:1200px;
+    margin:70px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#12233d;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:25px;
+    transition:.35s;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#FDB913;
+}
+
+.card h2{
+    color:#FDB913;
+    margin-bottom:15px;
+    font-size:24px;
+}
+
+.card p{
+    color:#d9d9d9;
+    font-size:16px;
+}
+
+/* Generic Section */
+
+.section{
+    width:90%;
+    max-width:1200px;
+    margin:80px auto;
+}
+
+.section-title{
+    text-align:center;
+    color:#FDB913;
+    font-size:38px;
+    margin-bottom:40px;
+}
+
+/* News */
+
+.news-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.news-card{
+    background:#0d1f37;
+    border-radius:15px;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.news-card:hover{
+    transform:translateY(-6px);
+}
+
+.news-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.news-content{
+    padding:20px;
+}
+
+.news-content h3{
+    color:#FDB913;
+    margin-bottom:10px;
+}
+
+.news-content p{
+    color:#ddd;
+}
+
+/* Matches */
+
+.match-box{
+    background:#A50044;
+    border-radius:16px;
+    padding:25px;
+    text-align:center;
+    color:#fff;
+    margin-top:20px;
+}
+
+.match-box h3{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.match-box p{
+    font-size:18px;
+}
+
+/* Gallery */
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.gallery-grid img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:.35s;
+}
+
+.gallery-grid img:hover{
+    transform:scale(1.05);
+}
+
+/* Fan Club */
+
+.fan-club{
+    background:linear-gradient(135deg,#004D98,#A50044);
+    padding:60px 25px;
+    border-radius:20px;
+    text-align:center;
+}
+
+.fan-club h2{
+    font-size:40px;
+    color:#FDB913;
+    margin-bottom:20px;
+}
+
+.fan-club p{
+    max-width:700px;
+    margin:auto;
+    color:#fff;
+    font-size:18px;
+    margin-bottom:30px;
+}
+/* =========================
+   Footer
+========================= */
+
+footer{
+    margin-top:80px;
+    background:#06111d;
+    padding:50px 20px;
+    text-align:center;
+    border-top:3px solid #A50044;
+}
+
+footer h3{
+    color:#FDB913;
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+footer p{
+    color:#cccccc;
+    margin:10px 0;
+    font-size:16px;
+}
+
+.footer-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin:25px 0;
+}
+
+.footer-links a{
+    color:#ffffff;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.footer-links a:hover{
+    color:#FDB913;
+}
+
+/* =========================
+   Social Buttons
+========================= */
+
+.social-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.instagram-btn,
+.telegram-btn{
+    text-decoration:none;
+    color:#fff;
+    padding:15px 28px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.instagram-btn{
+    background:#E1306C;
+}
+
+.telegram-btn{
+    background:#229ED9;
+}
+
+.instagram-btn:hover,
+.telegram-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 20px rgba(0,0,0,.3);
+}
+
+/* =========================
+   Animations
+========================= */
+
+.card,
+.news-card,
+.gallery-grid img,
+.match-box,
+.btn,
+.btn2{
+    transition:all .35s ease;
+}
+
+.card:hover,
+.news-card:hover,
+.gallery-grid img:hover{
+    box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+
+/* =========================
+   Scrollbar
+========================= */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#081320;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#A50044;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#FDB913;
+}
+
+/* =========================
+   Mobile Responsive
+========================= */
+
+@media(max-width:900px){
+
+header{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav{
+    justify-content:center;
+}
+
+.hero h1{
+    font-size:42px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.section-title{
+    font-size:30px;
+}
+
+.fan-club h2{
+    font-size:30px;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero{
+    min-height:70vh;
+}
+
+.hero h1{
+    font-size:32px;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+.btn,
+.btn2{
+    width:100%;
+    text-align:center;
+}
+
+.logo{
+    font-size:22px;
+}
+
+nav a{
+    font-size:15px;
+}
+
+footer{
+    padding:35px 15px;
+}
+
+.social-buttons{
+    flex-direction:column;
+}
+
+.instagram-btn,
+.telegram-btn{
+    width:100%;
+    max-width:320px;
+    margin:auto;
+}
+
+  }
