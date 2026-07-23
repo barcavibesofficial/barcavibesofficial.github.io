@@ -70,18 +70,53 @@ nav a:hover{
 /* Hero */
 
 .hero{
-    min-height:85vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:40px 20px;
-    background:
-    linear-gradient(rgba(8,19,32,.75),rgba(8,19,32,.85)),
-    url("https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=1600&q=80");
+    height:90vh;
     background-size:cover;
     background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    animation: barcaPlayers 25s infinite;
+    transition: background-image 1s ease-in-out;
+}
+
+
+/* Automatic Barca player background change */
+@keyframes barcaPlayers{
+
+0%{
+background-image:
+linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55");
+}
+
+25%{
+background-image:
+linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+url("https://images.unsplash.com/photo-1517466787929-bc90951d0974");
+}
+
+50%{
+background-image:
+linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+url("https://images.unsplash.com/photo-1553778263-73a83bab9b0c");
+}
+
+75%{
+background-image:
+linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+url("https://images.unsplash.com/photo-1526232761682-d26e03ac148e");
+}
+
+100%{
+background-image:
+linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55");
+}
+
+}
 }
 
 .hero h1{
