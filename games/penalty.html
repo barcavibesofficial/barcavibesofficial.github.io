@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Penalty Shootout</title>
+
+<style>
+
+body{
+margin:0;
+background:#0b3d0b;
+font-family:Arial;
+text-align:center;
+color:white;
+overflow:hidden;
+}
+
+h1{
+margin-top:20px;
+}
+
+#field{
+width:100%;
+height:500px;
+background:linear-gradient(#2f8f2f,#1f6f1f);
+position:relative;
+overflow:hidden;
+}
+
+#goal{
+width:320px;
+height:160px;
+border:8px solid white;
+position:absolute;
+left:50%;
+top:40px;
+transform:translateX(-50%);
+}
+
+#ball{
+width:60px;
+height:60px;
+background:white;
+border-radius:50%;
+position:absolute;
+bottom:40px;
+left:50%;
+transform:translateX(-50%);
+cursor:pointer;
+transition:0.5s;
+}
+
+#score{
+font-size:28px;
+margin:20px;
+}
+
+button{
+padding:15px 40px;
+font-size:20px;
+background:#ffcc00;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>⚽ Penalty Shootout</h1>
+
+<div id="score">
+Score : <span id="points">0</span>
+</div>
+
+<div id="field">
+
+<div id="goal"></div>
+
+<div id="ball"></div>
+
+</div>
+
+<br>
+
+<button onclick="kickBall()">
+Shoot
+</button>
+
+<script>
+
+let score=0;
+
+function kickBall(){
+
+let ball=document.getElementById("ball");
+
+let x=Math.random()*220-110;
+
+ball.style.left="calc(50% + "+x+"px)";
+ball.style.bottom="330px";
+
+setTimeout(()=>{
+
+score++;
+
+document.getElementById("points").innerHTML=score;
+
+ball.style.left="50%";
+ball.style.bottom="40px";
+
+},600);
+
+}
+
+</script>
+
+</body>
+</html>
