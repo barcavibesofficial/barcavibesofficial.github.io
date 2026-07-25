@@ -9,76 +9,65 @@
 <style>
 
 body{
-margin:0;
-background:#0b3d0b;
-font-family:Arial;
-text-align:center;
-color:white;
-overflow:hidden;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#063d06;
+    color:#fff;
+    text-align:center;
+    overflow:hidden;
 }
 
 h1{
-margin-top:20px;
+    margin:20px 0 10px;
+}
+
+#score{
+    font-size:28px;
+    margin-bottom:15px;
 }
 
 #field{
     width:100%;
     height:600px;
-    background-image:url("../images/stadium.jpg");
-    background-position:center;
-    background-size:cover;
-    background-repeat:no-repeat;
+    background:url("../images/stadium.jpg") center/cover no-repeat;
     position:relative;
     overflow:hidden;
-    padding-top:20px;
 }
 
 #goal{
-width:320px;
-height:160px;
-border:8px solid white;
-position:absolute;
-left:50%;
-top:40px;
-transform:translateX(-50%);
+    width:320px;
+    height:160px;
+    border:8px solid #fff;
+    position:absolute;
+    left:50%;
+    top:40px;
+    transform:translateX(-50%);
 }
 
 #ball{
     width:70px;
     height:70px;
-    background:url("ball.png");
-    background-size:contain;
-    background-repeat:no-repeat;
-    background-position:center;
+    background:url("ball.png") center/contain no-repeat;
     position:absolute;
     left:50%;
     bottom:70px;
     transform:translateX(-50%);
-    cursor:pointer;
-    transition:0.5s;
+    transition:0.6s;
     z-index:100;
-    ball.style.transform =
-`translate(${x}px, -420px) scale(0.25)`;
-}
-
-#score{
-font-size:28px;
-margin:20px;
 }
 
 button{
-padding:15px 40px;
-font-size:20px;
-background:#ffcc00;
-border:none;
-border-radius:10px;
-cursor:pointer;
+    margin-top:20px;
+    padding:15px 40px;
+    font-size:20px;
+    background:#ffcc00;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
 }
 
 </style>
-
 </head>
-
 <body>
 
 <h1>⚽ Penalty Shootout</h1>
@@ -88,42 +77,35 @@ Score : <span id="points">0</span>
 </div>
 
 <div id="field">
-
-<div id="goal"></div>
-
-<div id="ball"></div>
-
+    <div id="goal"></div>
+    <div id="ball"></div>
 </div>
 
 <br>
 
-<button onclick="kickBall()">
-Shoot
-</button>
+<button onclick="kickBall()">Shoot</button>
 
 <script>
 
-let score=0;
+let score = 0;
 
 function kickBall(){
 
-let ball=document.getElementById("ball");
+    let ball = document.getElementById("ball");
+    let x = Math.random() * 220 - 110;
 
-let x=Math.random()*220-110;
+    ball.style.transform = `translate(${x}px,-420px) scale(0.25)`;
 
-ball.style.left="calc(50% + "+x+"px)";
-ball.style.bottom="330px";
+    setTimeout(() => {
 
-setTimeout(()=>{
+        score++;
+        document.getElementById("points").innerHTML = score;
 
-score++;
+        ball.style.left = "50%";
+        ball.style.bottom = "70px";
+        ball.style.transform = "translateX(-50%) scale(1)";
 
-document.getElementById("points").innerHTML=score;
-
-ball.style.left="50%";
-ball.style.bottom="40px";
-
-},600);
+    }, 600);
 
 }
 
