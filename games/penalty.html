@@ -47,13 +47,17 @@ h1{
 #ball{
     width:70px;
     height:70px;
-    background:url("ball.png") center/contain no-repeat;
+    background-image:url("../images/ball.png");
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
     position:absolute;
     left:50%;
     bottom:30px;
     transform:translateX(-50%);
     transition:0.6s;
-    z-index:100;
+    z-index:9999;
+    display:block;
 }
 
 button{
