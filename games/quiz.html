@@ -153,7 +153,16 @@ loadQuestion();
 }else{
 
 document.getElementById("quiz").innerHTML=
-"<h2>🎉 Quiz Finished!</h2><h3>Your Score: "+score+" / "+quiz.length+"</h3>";
+`
+<h2>🎉 Quiz Finished!</h2>
+<h3>Your Score: ${score} / ${quiz.length}</h3>
+
+<button onclick="location.reload()">🔄 Play Again</button>
+
+<br><br>
+
+<button onclick="window.location='../games.html'">⬅️ Back to Games</button>
+`;
 
 }
 
