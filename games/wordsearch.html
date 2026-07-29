@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Barcelona Word Search</title>
 
@@ -12,13 +13,14 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-font-family:Arial,sans-serif;
 background:#08142d;
-color:white;
+color:#fff;
 text-align:center;
+overflow-x:hidden;
 }
 
 header{
@@ -29,100 +31,157 @@ font-weight:bold;
 }
 
 #game{
-max-width:700px;
-margin:20px auto;
+max-width:900px;
+margin:auto;
 padding:20px;
+}
+
+#topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:20px;
 }
 
 #level{
 font-size:24px;
 font-weight:bold;
-margin-bottom:10px;
 }
 
-#progress{
-font-size:18px;
-margin-bottom:20px;
-color:#ffd700;
+#timer{
+font-size:22px;
+color:#ffcc00;
+}
+
+#score{
+font-size:20px;
+color:#00ff66;
 }
 
 #grid{
 display:grid;
-grid-template-columns:repeat(5,60px);
-gap:8px;
+gap:3px;
 justify-content:center;
-margin:20px auto;
+margin:25px auto;
+touch-action:none;
+user-select:none;
 }
 
 .cell{
-width:60px;
-height:60px;
-background:#13336b;
-border-radius:8px;
+width:42px;
+height:42px;
+background:#14366d;
+border:2px solid #204d8f;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:28px;
+font-size:22px;
 font-weight:bold;
 cursor:pointer;
-user-select:none;
-transition:.2s;
+transition:.15s;
 }
 
 .cell:hover{
-background:#1b4d9c;
+background:#255cb4;
 }
 
 .selected{
-background:#ffd700;
+background:#ffcc00;
 color:#000;
 }
 
 .found{
 background:#00c853;
+color:#fff;
 }
 
-#words{
+#wordList{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:10px;
 margin-top:20px;
-font-size:20px;
-line-height:2;
+}
+
+.word{
+padding:8px 14px;
+background:#16396f;
+border-radius:8px;
+font-weight:bold;
+}
+
+.done{
+background:#00c853;
+text-decoration:line-through;
+}
+
+#message{
+margin-top:20px;
+font-size:28px;
+font-weight:bold;
+display:none;
+color:#00ff66;
+}
+
+.buttons{
+margin-top:25px;
 }
 
 button{
-margin-top:25px;
-padding:14px 35px;
-font-size:20px;
+padding:12px 22px;
+margin:6px;
+font-size:18px;
+font-weight:bold;
 border:none;
-border-radius:10px;
+border-radius:8px;
 background:#ffcc00;
 cursor:pointer;
-font-weight:bold;
 }
 
 button:hover{
 background:#ffd633;
 }
 
-@media(max-width:600px){
-
-#grid{
-grid-template-columns:repeat(5,48px);
-gap:6px;
-}
+@media(max-width:700px){
 
 .cell{
-width:48px;
-height:48px;
-font-size:22px;
+width:34px;
+height:34px;
+font-size:18px;
 }
 
 header{
 font-size:24px;
 }
 
+#level{
+font-size:20px;
+}
+
+#timer{
+font-size:18px;
+}
+
+#score{
+font-size:18px;
+}
+
+.word{
+font-size:15px;
+padding:6px 10px;
+}
+
+button{
+font-size:15px;
+padding:10px 16px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -133,166 +192,43 @@ font-size:24px;
 
 <div id="game">
 
+<div id="topBar">
+
 <div id="level">
-Level 1 - Young Stars
+Level 1
 </div>
 
-<div id="progress">
-Words Found: 0 / 3
+<div id="timer">
+⏱ 03:00
+</div>
+
+<div id="score">
+0 / 0 Words
+</div>
+
 </div>
 
 <div id="grid"></div>
 
-<div id="words"></div>
-  <button id="restartBtn" onclick="restartGame()">🔄 Restart</button>
+<div id="wordList"></div>
+
+<div id="message"></div>
+
+<div class="buttons">
+
+<button id="hintBtn">
+💡 Hint
+</button>
+
+<button id="restartBtn">
+🔄 Restart
+</button>
 
 <button onclick="location.href='../games.html'">
-⬅ Back to Games
+⬅ Back
 </button>
 
 </div>
 
 <script>
-
-const levels = [
-{
-name:"Level 1 - Young Stars",
-size:5,
-words:["YAMAL","PEDRI","GAVI"],
-grid:[
-["Y","A","M","A","L"],
-["P","E","D","R","I"],
-["G","A","V","I","X"],
-["L","T","N","O","P"],
-["M","R","S","A","B"]
-]
-}
-];
-
-let currentLevel = 0;
-let found = 0;
-let selectedWord = "";
-
-const grid = document.getElementById("grid");
-const wordsBox = document.getElementById("words");
-const progress = document.getElementById("progress");
-const level = document.getElementById("level");
-
-function loadLevel(){
-
-const data = levels[currentLevel];
-
-level.innerHTML = data.name;
-
-progress.innerHTML = "Words Found: 0 / " + data.words.length;
-
-grid.innerHTML = "";
-wordsBox.innerHTML = "";
-
-grid.style.gridTemplateColumns =
-`repeat(${data.size},60px)`;
-
-found = 0;
-selectedWord = "";
-
-data.words.forEach(word=>{
-wordsBox.innerHTML += `<div id="${word}">${word}</div>`;
-});
-
-data.grid.forEach(row=>{
-
-row.forEach(letter=>{
-
-const cell = document.createElement("div");
-
-cell.className = "cell";
-
-cell.innerHTML = letter;
-
-cell.onclick = function(){
-
-selectLetter(this);
-
-};
-
-grid.appendChild(cell);
-
-});
-
-});
-
-}
-  function selectLetter(cell){
-
-cell.classList.toggle("selected");
-
-selectedWord="";
-
-document.querySelectorAll(".selected").forEach(item=>{
-selectedWord += item.innerHTML;
-});
-
-const data = levels[currentLevel];
-
-let correct = false;
-
-data.words.forEach(word=>{
-
-if(selectedWord===word){
-
-correct = true;
-
-document.querySelectorAll(".selected").forEach(item=>{
-item.classList.remove("selected");
-item.classList.add("found");
-});
-
-document.getElementById(word).style.textDecoration="line-through";
-document.getElementById(word).style.color="#00ff66";
-
-found++;
-
-progress.innerHTML =
-"Words Found: "+found+" / "+data.words.length;
-
-if(found===data.words.length){
-
-setTimeout(function(){
-
-alert("🎉 Level Complete!");
-
-},500);
-
-}
-
-}
-
-});
-
-if(!correct && selectedWord.length>=12){
-
-document.querySelectorAll(".selected").forEach(item=>{
-item.classList.remove("selected");
-});
-
-selectedWord="";
-
-}
-
-}
-
-function restartGame(){
-
-loadLevel();
-
-}
-
-loadLevel();
-
-</script>
-
-</body>
-</html>
-
-</body>
-</html>
+  
