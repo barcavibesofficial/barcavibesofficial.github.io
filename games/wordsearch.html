@@ -155,7 +155,6 @@ Words Found: 0 / 3
 <script>
 
 const levels = [
-
 {
 name:"Level 1 - Young Stars",
 size:5,
@@ -168,54 +167,51 @@ grid:[
 ["M","R","S","A","B"]
 ]
 }
-
 ];
 
-let currentLevel=0;
-let found=0;
-let selected=[];
+let currentLevel = 0;
+let found = 0;
+let selectedWord = "";
 
-const grid=document.getElementById("grid");
-const words=document.getElementById("words");
-const progress=document.getElementById("progress");
-const level=document.getElementById("level");
-
-loadLevel();
+const grid = document.getElementById("grid");
+const wordsBox = document.getElementById("words");
+const progress = document.getElementById("progress");
+const level = document.getElementById("level");
 
 function loadLevel(){
 
-const data=levels[currentLevel];
+const data = levels[currentLevel];
 
-level.innerHTML=data.name;
+level.innerHTML = data.name;
 
-progress.innerHTML="Words Found: 0 / "+data.words.length;
+progress.innerHTML = "Words Found: 0 / " + data.words.length;
 
-grid.style.gridTemplateColumns=
+grid.innerHTML = "";
+wordsBox.innerHTML = "";
+
+grid.style.gridTemplateColumns =
 `repeat(${data.size},60px)`;
 
-grid.innerHTML="";
-words.innerHTML="";
-
-found=0;
-selected=[];
+found = 0;
+selectedWord = "";
 
 data.words.forEach(word=>{
-words.innerHTML+=`<div id="${word}">${word}</div>`;
+wordsBox.innerHTML += `<div id="${word}">${word}</div>`;
 });
 
 data.grid.forEach(row=>{
 
 row.forEach(letter=>{
 
-const cell=document.createElement("div");
+const cell = document.createElement("div");
 
-cell.className="cell";
+cell.className = "cell";
 
-cell.innerHTML=letter;
+cell.innerHTML = letter;
 
-cell.onclick=function(){
+cell.onclick = function(){
 
-selectLetter(cell);
+selectLetter(this);
 
 };
 
@@ -228,25 +224,27 @@ grid.appendChild(cell);
 }
   function selectLetter(cell){
 
-if(cell.classList.contains("found")) return;
-
 cell.classList.toggle("selected");
 
-let text="";
+selectedWord="";
 
-document.querySelectorAll(".selected").forEach(c=>{
-text+=c.innerHTML;
+document.querySelectorAll(".selected").forEach(item=>{
+selectedWord += item.innerHTML;
 });
 
-const data=levels[currentLevel];
+const data = levels[currentLevel];
+
+let correct = false;
 
 data.words.forEach(word=>{
 
-if(text===word){
+if(selectedWord===word){
 
-document.querySelectorAll(".selected").forEach(c=>{
-c.classList.remove("selected");
-c.classList.add("found");
+correct = true;
+
+document.querySelectorAll(".selected").forEach(item=>{
+item.classList.remove("selected");
+item.classList.add("found");
 });
 
 document.getElementById(word).style.textDecoration="line-through";
@@ -254,25 +252,14 @@ document.getElementById(word).style.color="#00ff66";
 
 found++;
 
-progress.innerHTML="Words Found: "+found+" / "+data.words.length;
+progress.innerHTML =
+"Words Found: "+found+" / "+data.words.length;
 
 if(found===data.words.length){
 
 setTimeout(function(){
 
-if(currentLevel < levels.length-1){
-
-currentLevel++;
-
-alert("🎉 Level Complete!\n\nLevel "+(currentLevel+1)+" Unlocked!");
-
-loadLevel();
-
-  }else{
-
-alert("🏆 Congratulations!\nYou completed all levels!");
-
-}
+alert("🎉 Level Complete!");
 
 },500);
 
@@ -280,35 +267,32 @@ alert("🏆 Congratulations!\nYou completed all levels!");
 
 }
 
-}
-
 });
 
+if(!correct && selectedWord.length>=12){
+
+document.querySelectorAll(".selected").forEach(item=>{
+item.classList.remove("selected");
+});
+
+selectedWord="";
+
 }
-
-function nextLevel(){
-
-currentLevel++;
-
-found=0;
-
-loadLevel();
 
 }
 
 function restartGame(){
 
-currentLevel=0;
-
-found=0;
-
 loadLevel();
 
 }
+
 loadLevel();
 
-
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
