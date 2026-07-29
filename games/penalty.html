@@ -191,10 +191,12 @@ keeper.style.left = keeperLeft[keeperPos];
 const shot = Math.floor(Math.random()*3);
 
 const moveX = ["-18vw","0vw","18vw"];
-const moveY = "-55vh";
+const moveY = "-34vh";
 
 ball.style.transform =
-`translate(calc(-50% + ${moveX[shot]}), ${moveY}) scale(.35)`;
+`translate(calc(-50% + ${moveX[shot]}), ${moveY}) scale(0.25)`;
+
+
 
 // Goal or save
 setTimeout(function(){
