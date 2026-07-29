@@ -144,7 +144,7 @@ Words Found: 0 / 3
 <div id="grid"></div>
 
 <div id="words"></div>
-  <button onclick="restartGame()">🔄 Restart</button>
+  <button id="restartBtn" onclick="restartGame()">🔄 Restart</button>
 
 <button onclick="location.href='../games.html'">
 ⬅ Back to Games
@@ -269,9 +269,6 @@ alert("🎉 Level Complete!\n\nLevel "+(currentLevel+1)+" Unlocked!");
 loadLevel();
 
   }else{
-
-document.getElementById("nextBtn").style.display="none";
-document.getElementById("restartBtn").style.display="inline-block";
 
 alert("🏆 Congratulations!\nYou completed all levels!");
 
