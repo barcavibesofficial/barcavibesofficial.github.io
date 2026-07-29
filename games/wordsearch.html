@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Barcelona Word Search</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#08142d;
+color:white;
+text-align:center;
+}
+
+header{
+background:#a50044;
+padding:18px;
+font-size:30px;
+font-weight:bold;
+}
+
+#game{
+max-width:700px;
+margin:20px auto;
+padding:20px;
+}
+
+#level{
+font-size:24px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+#progress{
+font-size:18px;
+margin-bottom:20px;
+color:#ffd700;
+}
+
+#grid{
+display:grid;
+grid-template-columns:repeat(5,60px);
+gap:8px;
+justify-content:center;
+margin:20px auto;
+}
+
+.cell{
+width:60px;
+height:60px;
+background:#13336b;
+border-radius:8px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+font-weight:bold;
+cursor:pointer;
+user-select:none;
+transition:.2s;
+}
+
+.cell:hover{
+background:#1b4d9c;
+}
+
+.selected{
+background:#ffd700;
+color:#000;
+}
+
+.found{
+background:#00c853;
+}
+
+#words{
+margin-top:20px;
+font-size:20px;
+line-height:2;
+}
+
+button{
+margin-top:25px;
+padding:14px 35px;
+font-size:20px;
+border:none;
+border-radius:10px;
+background:#ffcc00;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#ffd633;
+}
+
+@media(max-width:600px){
+
+#grid{
+grid-template-columns:repeat(5,48px);
+gap:6px;
+}
+
+.cell{
+width:48px;
+height:48px;
+font-size:22px;
+}
+
+header{
+font-size:24px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+🔤 Barcelona Word Search
+</header>
+
+<div id="game">
+
+<div id="level">
+Level 1 - Young Stars
+</div>
+
+<div id="progress">
+Words Found: 0 / 3
+</div>
+
+<div id="grid"></div>
+
+<div id="words"></div>
+  <button onclick="restartGame()">🔄 Restart</button>
+
+<button onclick="location.href='../games.html'">
+⬅ Back to Games
+</button>
+
+</div>
+
+<script>
+
+const levels = [
+
+{
+name:"Level 1 - Young Stars",
+size:5,
+words:["YAMAL","PEDRI","GAVI"],
+grid:[
+["Y","A","M","A","L"],
+["P","E","D","R","I"],
+["G","A","V","I","X"],
+["L","T","N","O","P"],
+["M","R","S","A","B"]
+]
+}
+
+];
+
+let currentLevel=0;
+let found=0;
+let selected=[];
+
+const grid=document.getElementById("grid");
+const words=document.getElementById("words");
+const progress=document.getElementById("progress");
+const level=document.getElementById("level");
+
+loadLevel();
+
+function loadLevel(){
+
+const data=levels[currentLevel];
+
+level.innerHTML=data.name;
+
+progress.innerHTML="Words Found: 0 / "+data.words.length;
+
+grid.style.gridTemplateColumns=
+`repeat(${data.size},60px)`;
+
+grid.innerHTML="";
+words.innerHTML="";
+
+found=0;
+selected=[];
+
+data.words.forEach(word=>{
+words.innerHTML+=`<div id="${word}">${word}</div>`;
+});
+
+data.grid.forEach(row=>{
+
+row.forEach(letter=>{
+
+const cell=document.createElement("div");
+
+cell.className="cell";
+
+cell.innerHTML=letter;
+
+cell.onclick=function(){
+
+selectLetter(cell);
+
+};
+
+grid.appendChild(cell);
+
+});
+
+});
+
+}
+  function selectLetter(cell){
+
+if(cell.classList.contains("found")) return;
+
+cell.classList.toggle("selected");
+
+let text="";
+
+document.querySelectorAll(".selected").forEach(c=>{
+text+=c.innerHTML;
+});
+
+const data=levels[currentLevel];
+
+data.words.forEach(word=>{
+
+if(text===word){
+
+document.querySelectorAll(".selected").forEach(c=>{
+c.classList.remove("selected");
+c.classList.add("found");
+});
+
+document.getElementById(word).style.textDecoration="line-through";
+document.getElementById(word).style.color="#00ff66";
+
+found++;
+
+progress.innerHTML="Words Found: "+found+" / "+data.words.length;
+
+if(found===data.words.length){
+
+setTimeout(function(){
+
+if(currentLevel < levels.length-1){
+
+currentLevel++;
+
+alert("🎉 Level Complete!\n\nLevel "+(currentLevel+1)+" Unlocked!");
+
+loadLevel();
+
+}else{
+
+alert("🏆 Congratulations!\nYou completed all levels!");
+
+}
+
+},500);
+
+}
+
+}
+
+}
+
+});
+
+}
+
+function restartGame(){
+
+loadLevel();
+
+}
+
+</script>
+
+</body>
+</html>
