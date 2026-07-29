@@ -230,8 +230,8 @@ message.style.display="block";
 // Reset
 setTimeout(function(){
 
-ball.style.transition=".45s";
-ball.style.transform="translateX(-50%) scale(1)";
+ball.style.transform =
+`translate(calc(-50% + ${ballX[shot]}), -24vh) scale(0.55)`;
 
 keeper.style.left="50%";
 
