@@ -71,7 +71,6 @@ nav a:hover{
 
 .hero{
     height:90vh;
-    background-image: url("images/barca-team.jpg");
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
@@ -80,8 +79,30 @@ nav a:hover{
     justify-content:center;
     text-align:center;
     position:relative;
-
+    animation:barcaBackground 25s infinite;
 }
+   @keyframes barcaBackground{
+
+    0%,20%{
+        background-image:url("images/barca-team.jpg");
+    }
+
+    20%,40%{
+        background-image:url("images/barca-stadium.jpg");
+    }
+
+    40%,60%{
+        background-image:url("images/barca-training.jpg");
+    }
+
+    60%,80%{
+        background-image:url("images/barca-messi.jpg");
+    }
+
+    80%,100%{
+        background-image:url("images/barca-lamine-yamal.jpg");
+    }
+   }
 
 
 .hero h1{
