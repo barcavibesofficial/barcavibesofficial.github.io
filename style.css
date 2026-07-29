@@ -79,7 +79,7 @@ nav a:hover{
     justify-content:center;
     text-align:center;
     position:relative;
-    animation: barcaBackground 2s infinite;
+    animation: barcaBackground 5s infinite;
 }
    @keyframes barcaBackground{
 
