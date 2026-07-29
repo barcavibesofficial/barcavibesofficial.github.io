@@ -268,7 +268,10 @@ alert("🎉 Level Complete!\n\nLevel "+(currentLevel+1)+" Unlocked!");
 
 loadLevel();
 
-}else{
+  }else{
+
+document.getElementById("nextBtn").style.display="none";
+document.getElementById("restartBtn").style.display="inline-block";
 
 alert("🏆 Congratulations!\nYou completed all levels!");
 
@@ -286,8 +289,25 @@ alert("🏆 Congratulations!\nYou completed all levels!");
 
 }
 
+function nextLevel(){
+
+currentLevel++;
+
+found=0;
+
+loadLevel();
+
+}
+
 function restartGame(){
 
+currentLevel=0;
+
+found=0;
+
+loadLevel();
+
+}
 loadLevel();
 
 }
