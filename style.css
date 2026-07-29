@@ -71,52 +71,18 @@ nav a:hover{
 
 .hero{
     height:90vh;
+    background-image: url("images/barca-team.jpg");
     background-size:cover;
     background-position:center;
+    background-repeat:no-repeat;
     display:flex;
     align-items:center;
     justify-content:center;
     text-align:center;
     position:relative;
-    animation: barcaPlayers 25s infinite;
-    transition: background-image 1s ease-in-out;
-}
-
-
-/* Automatic Barca player background change */
-@keyframes barcaPlayers{
-
-0%{
-background-image:
-linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55");
-}
-
-25%{
-background-image:
-linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-url("https://images.unsplash.com/photo-1517466787929-bc90951d0974");
-}
-
-50%{
-background-image:
-linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-url("https://images.unsplash.com/photo-1553778263-73a83bab9b0c");
-}
-
-75%{
-background-image:
-linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-url("https://images.unsplash.com/photo-1526232761682-d26e03ac148e");
-}
-
-100%{
-background-image:
-linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-url("https://images.unsplash.com/photo-1579952363873-27f3bade9f55");
-}
 
 }
+
 
 .hero h1{
     font-size:58px;
