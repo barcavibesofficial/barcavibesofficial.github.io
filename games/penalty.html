@@ -23,35 +23,33 @@ overflow-x:hidden;
 }
 
 h1{
-margin:15px 0;
-font-size:clamp(28px,5vw,42px);
+padding:15px 10px 5px;
+font-size:clamp(30px,5vw,48px);
 }
 
 #score{
-font-size:clamp(18px,3vw,24px);
-margin-bottom:10px;
+font-size:24px;
 font-weight:bold;
+margin-bottom:10px;
 }
 
 #field{
 position:relative;
 width:100%;
-height:70vh;
-min-height:420px;
-max-height:700px;
-background:url("../images/stadium.jpg") center center/cover no-repeat;
+height:72vh;
+min-height:450px;
+max-height:750px;
+background:url("../images/stadium.jpg") center/cover no-repeat;
 overflow:hidden;
 }
 
 #goal{
 position:absolute;
 left:50%;
-top:4%;
+top:5%;
 transform:translateX(-50%);
-width:32%;
-max-width:340px;
-min-width:180px;
-aspect-ratio:16/10;
+width:min(340px,70vw);
+height:220px;
 background:url("../images/goal.png") center/contain no-repeat;
 z-index:5;
 }
@@ -59,28 +57,37 @@ z-index:5;
 #keeper{
 position:absolute;
 left:50%;
-top:12%;
+top:90px;
 transform:translateX(-50%);
-width:10%;
-max-width:90px;
-min-width:55px;
-aspect-ratio:1/1;
+width:75px;
+height:75px;
 background:url("../images/keeper.png") center/contain no-repeat;
-transition:.25s;
+transition:.35s ease;
 z-index:20;
+}
+
+#ball{
+position:absolute;
+left:50%;
+bottom:35px;
+transform:translateX(-50%);
+width:60px;
+height:60px;
+background:url("../images/ball.png") center/contain no-repeat;
+transition:.65s ease;
+z-index:50;
 }
 
 #message{
 position:absolute;
 left:50%;
-top:42%;
+top:45%;
 transform:translateX(-50%);
-font-size:clamp(26px,5vw,42px);
+font-size:42px;
 font-weight:bold;
 display:none;
-text-shadow:2px 2px 8px #000;
-width:100%;
-z-index:1000;
+text-shadow:3px 3px 10px #000;
+z-index:100;
 }
 
 .goal{
@@ -91,28 +98,16 @@ color:#00ff66;
 color:#ff4444;
 }
 
-#ball{
-position:absolute;
-left:50%;
-bottom:5%;
-transform:translateX(-50%);
-width:8%;
-max-width:75px;
-min-width:45px;
-aspect-ratio:1/1;
-background:url("../images/ball.png") center/contain no-repeat;
-transition:.6s;
-z-index:999;
-}
-
 button{
 margin:20px auto;
-padding:15px 35px;
-font-size:22px;
+width:90%;
+max-width:320px;
+padding:16px;
+font-size:28px;
 font-weight:bold;
-background:#ffcc00;
 border:none;
-border-radius:12px;
+border-radius:14px;
+background:#ffcc00;
 cursor:pointer;
 }
 
@@ -120,33 +115,38 @@ button:hover{
 background:#ffd633;
 }
 
-@media(max-width:768px){
+@media (max-width:768px){
 
 #field{
-height:60vh;
+height:65vh;
 }
 
 #goal{
-width:52%;
+width:250px;
+height:170px;
+top:30px;
 }
 
 #keeper{
-width:18%;
-top:14%;
+width:60px;
+height:60px;
+top:75px;
 }
 
 #ball{
-width:14%;
+width:45px;
+height:45px;
+bottom:25px;
 }
 
-button{
-width:90%;
-max-width:320px;
+#message{
+font-size:34px;
 }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -174,31 +174,38 @@ Score:
 <script>
 
 let score = 0;
+let playing = false;
 
 function kickBall(){
+
+if(playing) return;
+playing = true;
 
 const ball = document.getElementById("ball");
 const keeper = document.getElementById("keeper");
 const message = document.getElementById("message");
 
-// Keeper position
+// Hide previous message
+message.style.display = "none";
+
+// Random keeper position
 const keeperPos = Math.floor(Math.random()*3);
 
-const keeperLeft = ["35%","50%","65%"];
+// Goal positions
+const keeperLeft = ["38%","50%","62%"];
 keeper.style.left = keeperLeft[keeperPos];
 
-// Ball direction
+// Ball target
 const shot = Math.floor(Math.random()*3);
 
-const moveX = ["-18vw","0vw","18vw"];
-const moveY = "-34vh";
+const ballX = ["-16vw","0vw","16vw"];
 
+// Realistic ball animation
+ball.style.transition = ".65s ease";
 ball.style.transform =
-`translate(calc(-50% + ${moveX[shot]}), ${moveY}) scale(0.25)`;
+`translate(calc(-50% + ${ballX[shot]}), -34vh) scale(0.28)`;
 
-
-
-// Goal or save
+// Check result
 setTimeout(function(){
 
 if(shot===keeperPos){
@@ -218,16 +225,21 @@ message.className="goal";
 
 message.style.display="block";
 
-},500);
+},650);
 
 // Reset
 setTimeout(function(){
 
-ball.style.transform="translateX(-50%)";
+ball.style.transition=".45s";
+ball.style.transform="translateX(-50%) scale(1)";
+
 keeper.style.left="50%";
+
 message.style.display="none";
 
-},1200);
+playing=false;
+
+},1500);
 
 }
 
