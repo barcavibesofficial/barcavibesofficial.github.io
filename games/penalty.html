@@ -230,8 +230,11 @@ message.style.display="block";
 // Reset
 setTimeout(function(){
 
-ball.style.transform =
-`translate(calc(-50% + ${ballX[shot]}), -24vh) scale(0.55)`;
+ball.style.transition="none";
+
+ball.style.left="50%";
+ball.style.bottom="35px";
+ball.style.transform="translateX(-50%) scale(1)";
 
 keeper.style.left="50%";
 
@@ -239,9 +242,12 @@ message.style.display="none";
 
 playing=false;
 
-},1500);
+// Re-enable animation for next shot
+setTimeout(function(){
+ball.style.transition=".65s ease";
+},20);
 
-}
+},1500);
 
 </script>
 
