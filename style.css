@@ -607,3 +607,38 @@ footer{
     font-size:15px;
     line-height:1.5;
 }
+/* ===========================
+   Barca Music Player
+=========================== */
+
+.music-player{
+    width:90%;
+    max-width:700px;
+    margin:50px auto;
+    padding:20px;
+    border-radius:25px;
+    text-align:center;
+
+    background:rgba(0,0,0,.35);
+    backdrop-filter:blur(10px);
+
+    background-image:url("images/logo.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:250px;
+
+    border:2px solid rgba(253,185,19,.35);
+
+    box-shadow:0 0 25px rgba(0,77,152,.5);
+}
+
+.music-player h2{
+    color:#FDB913;
+    margin-bottom:15px;
+    text-shadow:0 0 10px #000;
+}
+
+.music-player audio{
+    width:100%;
+    border-radius:30px;
+}
