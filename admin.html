@@ -68,11 +68,7 @@ placeholder="Write article here..."></textarea>
 
 
 <script type="module">
-alert("Module loaded");
-
 import { db } from "./firebase.js";
-
-alert("Firebase imported");
 
 import {
   collection,
@@ -81,7 +77,22 @@ import {
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 window.publishNews = async function () {
-  alert("publishNews called");
+  try {
+    alert("Starting publish...");
+
+    await addDoc(collection(db, "news"), {
+      title: "Test News",
+      category: "Club News",
+      image: "",
+      content: "This is a test article.",
+      created: serverTimestamp()
+    });
+
+    alert("✅ News saved to Firestore!");
+  } catch (err) {
+    alert("❌ Error: " + err.message);
+    console.error(err);
+  }
 };
 </script>
 
