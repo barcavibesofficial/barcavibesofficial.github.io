@@ -131,17 +131,16 @@ z-index:20;
 /* Ball */
 
 #ball{
-
 position:absolute;
 left:50%;
 bottom:35px;
-transform:translateX(-50%);
 width:72px;
 height:72px;
+transform:translateX(-50%);
 background:url("../images/ball.png") center/contain no-repeat;
-transition:left .75s ease,bottom .75s ease,width .75s ease,height .75s ease;
+background-size:contain;
+background-repeat:no-repeat;
 z-index:30;
-
 }
 
 #message{
@@ -278,21 +277,19 @@ const shotPos = ["40%","50%","60%"];
 function kickBall(){
 
 if(playing) return;
-
 playing = true;
 
 message.style.display = "none";
 
-// Random positions
+// Random keeper
 const keeperSide = Math.floor(Math.random()*3);
-const shotSide = Math.floor(Math.random()*3);
-
-// Keeper dives
 keeper.style.left = keeperPos[keeperSide];
 
-// Reset ball instantly
-ball.style.transition = "none";
+// Random shot
+const shotSide = Math.floor(Math.random()*3);
 
+// Reset ball
+ball.style.transition = "none";
 ball.style.left = "50%";
 ball.style.bottom = "35px";
 ball.style.width = "72px";
@@ -300,17 +297,17 @@ ball.style.height = "72px";
 
 void ball.offsetWidth;
 
-// Shoot animation
-ball.style.transition =
-"left .75s ease,bottom .75s ease,width .75s ease,height .75s ease";
+// Ball target positions (pixels from center)
+const moveX = [-120,0,120];
 
-ball.style.left = shotPos[shotSide];
-ball.style.bottom = "68%";
-ball.style.width = "26px";
-ball.style.height = "26px";
+// Animate
+ball.style.transition = "all .8s ease";
+ball.style.transform =
+`translateX(calc(-50% + ${moveX[shotSide]}px)) scale(.35)`;
+ball.style.bottom = "420px";
 
 // Result
-setTimeout(function(){
+setTimeout(()=>{
 
 if(keeperSide===shotSide){
 
@@ -320,7 +317,6 @@ message.className="saved";
 }else{
 
 score++;
-
 points.innerHTML=score;
 
 message.innerHTML="⚽ GOAL!";
@@ -332,28 +328,26 @@ message.style.display="block";
 
 },800);
 
-// Return animation
-setTimeout(function(){
+// Return
+setTimeout(()=>{
 
-ball.style.transition =
-"left .45s ease,bottom .45s ease,width .45s ease,height .45s ease";
-
-ball.style.left="50%";
+ball.style.transition="all .4s ease";
+ball.style.transform="translateX(-50%) scale(1)";
 ball.style.bottom="35px";
-ball.style.width="72px";
-ball.style.height="72px";
 
 keeper.style.left="50%";
 
 },1700);
 
-setTimeout(function(){
+setTimeout(()=>{
 
 message.style.display="none";
-
 playing=false;
 
 },2200);
+
+}
+
   // Smooth keeper return
 setTimeout(function(){
 
