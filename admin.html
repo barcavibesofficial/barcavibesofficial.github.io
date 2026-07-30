@@ -78,25 +78,36 @@ import {
 
 window.publishNews = async function () {
   try {
-    alert("Starting publish...");
+    let title = document.getElementById("newsTitle").value;
+    let category = document.getElementById("newsCategory").value;
+    let image = document.getElementById("newsImage").value;
+    let content = document.getElementById("newsContent").value;
+
+    if (!title || !content) {
+      alert("Fill title and article");
+      return;
+    }
 
     await addDoc(collection(db, "news"), {
-      title: "Test News",
-      category: "Club News",
-      image: "",
-      content: "This is a test article.",
+      title,
+      category,
+      image,
+      content,
       created: serverTimestamp()
     });
 
-    alert("✅ News saved to Firestore!");
+    alert("✅ News Published Successfully!");
+
+    document.getElementById("newsTitle").value = "";
+    document.getElementById("newsImage").value = "";
+    document.getElementById("newsContent").value = "";
+
   } catch (err) {
-    alert("❌ Error: " + err.message);
+    alert("❌ " + err.message);
     console.error(err);
   }
 };
 </script>
-
-
 
 </body>
 </html>
