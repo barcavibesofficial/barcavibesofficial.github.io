@@ -3,10 +3,9 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Barcelona Word Search</title>
+<title>Barcelona Word Puzzle</title>
 
 <style>
 
@@ -14,371 +13,223 @@ content="width=device-width,initial-scale=1.0">
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-font-family:Arial,sans-serif;
 background:#07132b;
-color:#fff;
+color:white;
+text-align:center;
 overflow-x:hidden;
-position:relative;
 }
-
-/* Animated Background */
-
-body::before{
-content:"";
-position:fixed;
-width:100%;
-height:100%;
-left:0;
-top:0;
-background:
-radial-gradient(circle,#004d98 0%,transparent 60%),
-radial-gradient(circle,#a50044 0%,transparent 60%);
-opacity:.25;
-animation:bgMove 12s linear infinite alternate;
-z-index:-3;
-}
-
-@keyframes bgMove{
-
-0%{
-transform:scale(1) rotate(0deg);
-}
-
-100%{
-transform:scale(1.3) rotate(8deg);
-}
-
-}
-
-/* Floating Logo */
-
-.logo-bg{
-
-position:fixed;
-
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%);
-
-width:330px;
-
-opacity:.08;
-
-animation:logoFloat 8s ease-in-out infinite;
-
-pointer-events:none;
-
-z-index:-2;
-
-}
-
-.logo-bg img{
-
-width:100%;
-
-filter:
-drop-shadow(0 0 20px gold);
-
-}
-
-@keyframes logoFloat{
-
-0%{
-
-transform:
-translate(-50%,-50%)
-scale(1);
-
-}
-
-50%{
-
-transform:
-translate(-50%,-53%)
-scale(1.08)
-rotate(3deg);
-
-}
-
-100%{
-
-transform:
-translate(-50%,-50%)
-scale(1);
-
-}
-
-}
-
-/* Header */
 
 header{
-
 background:#a50044;
-
-padding:20px;
-
-font-size:34px;
-
+padding:18px;
+font-size:30px;
 font-weight:bold;
-
-text-align:center;
-
-box-shadow:0 5px 15px rgba(0,0,0,.5);
-
 }
 
 #game{
-
-max-width:900px;
-
+max-width:800px;
 margin:auto;
-
-padding:25px;
-
-text-align:center;
-
+padding:20px;
 }
 
 #level{
-
-font-size:34px;
-
+font-size:28px;
 font-weight:bold;
-
-margin-top:10px;
-
+margin:15px 0;
 }
 
 #progress{
-
-margin-top:15px;
-
-font-size:24px;
-
+font-size:20px;
 color:#ffd700;
-
+margin-bottom:10px;
 }
-
-#timer{
-
-margin-top:12px;
-
-font-size:22px;
-
-color:#00e5ff;
-
-}
-
-#hint{
-
-margin-top:12px;
-
-font-size:18px;
-
-color:#8bc34a;
-
-}
-
-/* Puzzle */
 
 #grid{
-
 display:grid;
-
+grid-template-columns:repeat(6,55px);
+gap:6px;
 justify-content:center;
-
-gap:5px;
-
-margin-top:35px;
-
+margin:20px auto;
 }
 
 .cell{
-
-width:52px;
-
-height:52px;
-
-background:#143b76;
-
-border-radius:8px;
-
+width:55px;
+height:55px;
+background:#114080;
 display:flex;
-
 justify-content:center;
-
 align-items:center;
-
 font-size:28px;
-
 font-weight:bold;
-
+border-radius:8px;
 cursor:pointer;
-
 transition:.2s;
-
 user-select:none;
-
 }
 
 .cell:hover{
-
-background:#1e5aa8;
-
+background:#1e5eb7;
 }
 
 .selected{
-
-background:#ffd600;
-
+background:#ffd700;
 color:#000;
-
-transform:scale(1.1);
-
 }
 
 .found{
-
 background:#00c853;
-
-color:white;
-
-}
-
-.wordFound{
-
-text-decoration:line-through;
-
-color:#00ff66;
-
-font-weight:bold;
-
 }
 
 #words{
-
-margin-top:35px;
-
 display:flex;
-
-flex-wrap:wrap;
-
 justify-content:center;
-
-gap:12px;
-
-font-size:20px;
-
+flex-wrap:wrap;
+gap:10px;
+margin-top:20px;
 }
-  button{
 
-padding:15px 35px;
-
-margin:12px;
-
-border:none;
-
-border-radius:12px;
-
-background:#ffcc00;
-
-color:#000;
-
-font-size:20px;
-
+.word{
+padding:8px 14px;
+background:#123b75;
+border-radius:8px;
 font-weight:bold;
+}
 
+.done{
+background:#00c853;
+text-decoration:line-through;
+}
+
+button{
+margin:12px;
+padding:12px 24px;
+font-size:18px;
+font-weight:bold;
+border:none;
+border-radius:10px;
+background:#ffcc00;
 cursor:pointer;
-
-transition:.25s;
-
 }
 
 button:hover{
-
-transform:scale(1.05);
-
 background:#ffd633;
-
 }
 
-#nextBtn{
-
+#message{
+font-size:28px;
+font-weight:bold;
+margin-top:20px;
 display:none;
-
-}
-
-#restartBtn{
-
-display:none;
-
+color:#00ff66;
 }
 
 @media(max-width:700px){
 
-header{
-
-font-size:26px;
-
-}
-
-#level{
-
-font-size:26px;
-
-}
-
-#progress{
-
-font-size:20px;
-
-}
-
-#timer{
-
-font-size:20px;
-
+#grid{
+grid-template-columns:repeat(6,45px);
 }
 
 .cell{
+width:45px;
+height:45px;
+font-size:22px;
+}
 
-width:46px;
-
-height:46px;
-
+header{
 font-size:24px;
-
-}
-
-.logo-bg{
-
-width:250px;
-
 }
 
 }
+.bg{
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+overflow:hidden;
+pointer-events:none;
+z-index:-1;
+}
 
+.logo{
+position:absolute;
+width:90px;
+opacity:.08;
+animation:float 18s linear infinite;
+filter:drop-shadow(0 0 15px gold);
+}
+
+.l1{
+left:5%;
+top:10%;
+animation-duration:15s;
+}
+
+.l2{
+left:80%;
+top:20%;
+animation-duration:18s;
+}
+
+.l3{
+left:25%;
+top:70%;
+animation-duration:20s;
+}
+
+.l4{
+left:65%;
+top:80%;
+animation-duration:22s;
+}
+
+.l5{
+left:45%;
+top:40%;
+animation-duration:17s;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0) rotate(0deg) scale(1);
+}
+
+25%{
+transform:translateY(-25px) rotate(8deg) scale(1.05);
+}
+
+50%{
+transform:translateY(15px) rotate(-8deg) scale(.95);
+}
+
+75%{
+transform:translateY(-20px) rotate(5deg) scale(1.05);
+}
+
+100%{
+transform:translateY(0) rotate(0deg) scale(1);
+}
+
+}
 </style>
 
 </head>
 
 <body>
-
-<div class="logo-bg">
-
-<img src="../images/logo.png">
-
+<div class="bg">
+    <img src="../images/logo.png" class="logo l1">
+    <img src="../images/logo.png" class="logo l2">
+    <img src="../images/logo.png" class="logo l3">
+    <img src="../images/logo.png" class="logo l4">
+    <img src="../images/logo.png" class="logo l5">
 </div>
-
 <header>
-
-🔤 Barcelona Word Search
-
+🔤 Barcelona Word Puzzle
 </header>
 
 <div id="game">
@@ -387,104 +238,174 @@ width:250px;
 
 <div id="progress"></div>
 
-<div id="timer">
-⏱ Time: 60
-</div>
-
-<div id="hint">
-Find all Barcelona words!
-</div>
-
 <div id="grid"></div>
 
 <div id="words"></div>
 
-<br>
+<div id="message"></div>
 
-<button id="nextBtn" onclick="nextLevel()">
-➡ Next Level
-</button>
-
-<button id="restartBtn" onclick="restartGame()">
-🔄 Restart Game
+<button onclick="restartGame()">
+🔄 Restart
 </button>
 
 <button onclick="location.href='../games.html'">
-⬅ Back to Games
+⬅ Back
 </button>
 
-</div>
-
 <script>
-
-const levels=[
-
+  const levels = [
 {
-
 name:"Level 1 - Young Stars",
-
-size:8,
-
-words:["YAMAL","PEDRI","GAVI","CUBARSI"],
-
+words:["YAMAL","PEDRI","GAVI"],
 grid:[
-
-["Y","A","M","A","L","R","S","P"],
-
-["P","E","D","R","I","A","L","Q"],
-
-["G","A","V","I","T","M","X","B"],
-
-["C","U","B","A","R","S","I","K"],
-
-["L","Q","P","A","D","N","O","Z"],
-
-["M","T","R","E","H","L","P","Y"],
-
-["A","X","C","S","V","M","R","A"],
-
-["B","N","L","O","Q","P","I","D"]
-
+["Y","A","M","A","L","X"],
+["P","E","D","R","I","Q"],
+["G","A","V","I","T","L"],
+["R","M","N","O","P","S"],
+["A","B","C","D","E","F"],
+["X","Y","Z","L","M","N"]
 ]
+}
+];
 
-},
+let currentLevel=0;
+let found=0;
+let selected=[];
 
-{
+const grid=document.getElementById("grid");
+const words=document.getElementById("words");
+const level=document.getElementById("level");
+const progress=document.getElementById("progress");
+const message=document.getElementById("message");
 
-name:"Level 2 - Midfield Masters",
+loadLevel();
 
-size:8,
+function loadLevel(){
 
-words:["DEJONG","OLMO","FERMIN","CASADO"],
+const data=levels[currentLevel];
 
-grid:[
+level.innerHTML=data.name;
 
-["D","E","J","O","N","G","Q","A"],
+progress.innerHTML="Words Found: 0 / "+data.words.length;
 
-["F","E","R","M","I","N","R","S"],
+grid.innerHTML="";
+words.innerHTML="";
 
-["O","L","M","O","T","Y","A","D"],
+found=0;
+selected=[];
 
-["C","A","S","A","D","O","P","F"],
+data.words.forEach(word=>{
 
-["K","L","Q","R","S","M","N","O"],
+words.innerHTML+=
+`<div class="word" id="${word}">${word}</div>`;
 
-["B","A","R","C","A","L","E","X"],
+});
 
-["Y","T","P","Q","R","S","V","Z"],
+data.grid.forEach(row=>{
 
-["A","M","O","R","I","M","L","K"]
+row.forEach(letter=>{
 
-]
+const cell=document.createElement("div");
 
-},
+cell.className="cell";
 
-{
+cell.innerHTML=letter;
 
-name:"Level 3 - Defence",
+cell.onclick=function(){
 
-size:8,
+selectCell(cell);
 
-words:["KOUNDE","BALDE","ARAUJO","CHRISTENSEN"],
+};
 
-grid:[
+grid.appendChild(cell);
+
+});
+
+});
+
+}
+
+function selectCell(cell){
+
+if(cell.classList.contains("found")) return;
+
+cell.classList.toggle("selected");
+
+updateSelection();
+
+}
+
+function updateSelection(){
+
+selected=[];
+
+let text="";
+
+document.querySelectorAll(".selected").forEach(c=>{
+
+selected.push(c);
+
+text+=c.innerHTML;
+
+});
+
+checkWord(text);
+
+}
+  function checkWord(text){
+
+const data=levels[currentLevel];
+
+data.words.forEach(word=>{
+
+if(text===word){
+
+selected.forEach(c=>{
+
+c.classList.remove("selected");
+
+c.classList.add("found");
+
+});
+
+document.getElementById(word).classList.add("done");
+
+found++;
+
+progress.innerHTML=
+"Words Found: "+found+" / "+data.words.length;
+
+selected=[];
+
+if(found===data.words.length){
+
+message.style.display="block";
+
+message.innerHTML="🏆 Level Complete!";
+
+setTimeout(function(){
+
+message.style.display="none";
+
+alert("🎉 You completed Level 1!");
+
+},500);
+
+}
+
+}
+
+});
+
+}
+
+function restartGame(){
+
+loadLevel();
+
+}
+
+</script>
+
+</body>
+</html>
