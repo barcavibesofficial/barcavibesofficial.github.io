@@ -54,11 +54,47 @@ font-weight:bold;
 font-size:20px;
 margin-top:20px;
 }
+  .bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+overflow:hidden;
+pointer-events:none;
+z-index:-1;
+}
+
+.logo{
+position:absolute;
+width:90px;
+opacity:.08;
+animation:float 18s linear infinite;
+filter:drop-shadow(0 0 10px gold);
+}
+
+.l1{top:8%;left:5%;animation-duration:15s;}
+.l2{top:20%;right:10%;animation-duration:18s;}
+.l3{bottom:15%;left:15%;animation-duration:20s;}
+.l4{bottom:10%;right:15%;animation-duration:22s;}
+.l5{top:45%;left:45%;animation-duration:17s;}
+
+@keyframes float{
+0%{transform:translateY(0) rotate(0deg) scale(1);}
+50%{transform:translateY(-25px) rotate(10deg) scale(1.05);}
+100%{transform:translateY(0) rotate(0deg) scale(1);}
+}
 </style>
 </head>
 
 <body>
-
+<div class="bg">
+    <img src="../images/logo.png" class="logo l1">
+    <img src="../images/logo.png" class="logo l2">
+    <img src="../images/logo.png" class="logo l3">
+    <img src="../images/logo.png" class="logo l4">
+    <img src="../images/logo.png" class="logo l5">
+</div>
 <h1>🧩 Barcelona Player Quiz</h1>
 
 <div id="quiz">
