@@ -67,82 +67,24 @@ placeholder="Write article here..."></textarea>
 </section>
 
 
-
 <script type="module">
+alert("Module loaded");
 
 import { db } from "./firebase.js";
 
-import {
-collection,
-addDoc,
-serverTimestamp
+alert("Firebase imported");
 
+import {
+  collection,
+  addDoc,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-
-window.publishNews = async function(){
-
-alert("Button works!");
-  
-
-
-let title =
-document.getElementById("newsTitle").value;
-
-
-let category =
-document.getElementById("newsCategory").value;
-
-
-let image =
-document.getElementById("newsImage").value;
-
-
-let content =
-document.getElementById("newsContent").value;
-
-
-
-if(!title || !content){
-
-alert("Fill title and article");
-
-return;
-
-}
-
-
-
-await addDoc(collection(db,"news"),{
-
-title:title,
-
-category:category,
-
-image:image,
-
-content:content,
-
-created:serverTimestamp()
-
-});
-
-
-
-alert("✅ News Published Successfully");
-
-
-document.getElementById("newsTitle").value="";
-
-document.getElementById("newsImage").value="";
-
-document.getElementById("newsContent").value="";
-
-
-}
-
-
+window.publishNews = async function () {
+  alert("publishNews called");
+};
 </script>
+
 
 
 </body>
