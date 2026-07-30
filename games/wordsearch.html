@@ -3,7 +3,8 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>Barcelona Word Search</title>
 
@@ -13,169 +14,351 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
 }
 
 body{
-background:#08142d;
+font-family:Arial,sans-serif;
+background:#07132b;
 color:#fff;
-text-align:center;
 overflow-x:hidden;
+position:relative;
 }
 
+/* Animated Background */
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+left:0;
+top:0;
+background:
+radial-gradient(circle,#004d98 0%,transparent 60%),
+radial-gradient(circle,#a50044 0%,transparent 60%);
+opacity:.25;
+animation:bgMove 12s linear infinite alternate;
+z-index:-3;
+}
+
+@keyframes bgMove{
+
+0%{
+transform:scale(1) rotate(0deg);
+}
+
+100%{
+transform:scale(1.3) rotate(8deg);
+}
+
+}
+
+/* Floating Logo */
+
+.logo-bg{
+
+position:fixed;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+width:330px;
+
+opacity:.08;
+
+animation:logoFloat 8s ease-in-out infinite;
+
+pointer-events:none;
+
+z-index:-2;
+
+}
+
+.logo-bg img{
+
+width:100%;
+
+filter:
+drop-shadow(0 0 20px gold);
+
+}
+
+@keyframes logoFloat{
+
+0%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+}
+
+50%{
+
+transform:
+translate(-50%,-53%)
+scale(1.08)
+rotate(3deg);
+
+}
+
+100%{
+
+transform:
+translate(-50%,-50%)
+scale(1);
+
+}
+
+}
+
+/* Header */
+
 header{
+
 background:#a50044;
-padding:18px;
-font-size:30px;
+
+padding:20px;
+
+font-size:34px;
+
 font-weight:bold;
+
+text-align:center;
+
+box-shadow:0 5px 15px rgba(0,0,0,.5);
+
 }
 
 #game{
-max-width:900px;
-margin:auto;
-padding:20px;
-}
 
-#topBar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:20px;
+max-width:900px;
+
+margin:auto;
+
+padding:25px;
+
+text-align:center;
+
 }
 
 #level{
-font-size:24px;
+
+font-size:34px;
+
 font-weight:bold;
+
+margin-top:10px;
+
+}
+
+#progress{
+
+margin-top:15px;
+
+font-size:24px;
+
+color:#ffd700;
+
 }
 
 #timer{
+
+margin-top:12px;
+
 font-size:22px;
-color:#ffcc00;
+
+color:#00e5ff;
+
 }
 
-#score{
-font-size:20px;
-color:#00ff66;
+#hint{
+
+margin-top:12px;
+
+font-size:18px;
+
+color:#8bc34a;
+
 }
+
+/* Puzzle */
 
 #grid{
+
 display:grid;
-gap:3px;
+
 justify-content:center;
-margin:25px auto;
-touch-action:none;
-user-select:none;
+
+gap:5px;
+
+margin-top:35px;
+
 }
 
 .cell{
-width:42px;
-height:42px;
-background:#14366d;
-border:2px solid #204d8f;
+
+width:52px;
+
+height:52px;
+
+background:#143b76;
+
+border-radius:8px;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
-font-size:22px;
+
+font-size:28px;
+
 font-weight:bold;
+
 cursor:pointer;
-transition:.15s;
+
+transition:.2s;
+
+user-select:none;
+
 }
 
 .cell:hover{
-background:#255cb4;
+
+background:#1e5aa8;
+
 }
 
 .selected{
-background:#ffcc00;
+
+background:#ffd600;
+
 color:#000;
+
+transform:scale(1.1);
+
 }
 
 .found{
+
 background:#00c853;
-color:#fff;
+
+color:white;
+
 }
 
-#wordList{
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:10px;
-margin-top:20px;
-}
+.wordFound{
 
-.word{
-padding:8px 14px;
-background:#16396f;
-border-radius:8px;
-font-weight:bold;
-}
-
-.done{
-background:#00c853;
 text-decoration:line-through;
-}
 
-#message{
-margin-top:20px;
-font-size:28px;
-font-weight:bold;
-display:none;
 color:#00ff66;
-}
 
-.buttons{
-margin-top:25px;
-}
-
-button{
-padding:12px 22px;
-margin:6px;
-font-size:18px;
 font-weight:bold;
+
+}
+
+#words{
+
+margin-top:35px;
+
+display:flex;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+gap:12px;
+
+font-size:20px;
+
+}
+  button{
+
+padding:15px 35px;
+
+margin:12px;
+
 border:none;
-border-radius:8px;
+
+border-radius:12px;
+
 background:#ffcc00;
+
+color:#000;
+
+font-size:20px;
+
+font-weight:bold;
+
 cursor:pointer;
+
+transition:.25s;
+
 }
 
 button:hover{
+
+transform:scale(1.05);
+
 background:#ffd633;
+
+}
+
+#nextBtn{
+
+display:none;
+
+}
+
+#restartBtn{
+
+display:none;
+
 }
 
 @media(max-width:700px){
 
-.cell{
-width:34px;
-height:34px;
-font-size:18px;
-}
-
 header{
-font-size:24px;
+
+font-size:26px;
+
 }
 
 #level{
+
+font-size:26px;
+
+}
+
+#progress{
+
 font-size:20px;
+
 }
 
 #timer{
-font-size:18px;
+
+font-size:20px;
+
 }
 
-#score{
-font-size:18px;
+.cell{
+
+width:46px;
+
+height:46px;
+
+font-size:24px;
+
 }
 
-.word{
-font-size:15px;
-padding:6px 10px;
-}
+.logo-bg{
 
-button{
-font-size:15px;
-padding:10px 16px;
+width:250px;
+
 }
 
 }
@@ -186,49 +369,122 @@ padding:10px 16px;
 
 <body>
 
+<div class="logo-bg">
+
+<img src="../images/logo.png">
+
+</div>
+
 <header>
+
 🔤 Barcelona Word Search
+
 </header>
 
 <div id="game">
 
-<div id="topBar">
+<div id="level"></div>
 
-<div id="level">
-Level 1
-</div>
+<div id="progress"></div>
 
 <div id="timer">
-⏱ 03:00
+⏱ Time: 60
 </div>
 
-<div id="score">
-0 / 0 Words
-</div>
-
+<div id="hint">
+Find all Barcelona words!
 </div>
 
 <div id="grid"></div>
 
-<div id="wordList"></div>
+<div id="words"></div>
 
-<div id="message"></div>
+<br>
 
-<div class="buttons">
-
-<button id="hintBtn">
-💡 Hint
+<button id="nextBtn" onclick="nextLevel()">
+➡ Next Level
 </button>
 
-<button id="restartBtn">
-🔄 Restart
+<button id="restartBtn" onclick="restartGame()">
+🔄 Restart Game
 </button>
 
 <button onclick="location.href='../games.html'">
-⬅ Back
+⬅ Back to Games
 </button>
 
 </div>
 
 <script>
-  
+
+const levels=[
+
+{
+
+name:"Level 1 - Young Stars",
+
+size:8,
+
+words:["YAMAL","PEDRI","GAVI","CUBARSI"],
+
+grid:[
+
+["Y","A","M","A","L","R","S","P"],
+
+["P","E","D","R","I","A","L","Q"],
+
+["G","A","V","I","T","M","X","B"],
+
+["C","U","B","A","R","S","I","K"],
+
+["L","Q","P","A","D","N","O","Z"],
+
+["M","T","R","E","H","L","P","Y"],
+
+["A","X","C","S","V","M","R","A"],
+
+["B","N","L","O","Q","P","I","D"]
+
+]
+
+},
+
+{
+
+name:"Level 2 - Midfield Masters",
+
+size:8,
+
+words:["DEJONG","OLMO","FERMIN","CASADO"],
+
+grid:[
+
+["D","E","J","O","N","G","Q","A"],
+
+["F","E","R","M","I","N","R","S"],
+
+["O","L","M","O","T","Y","A","D"],
+
+["C","A","S","A","D","O","P","F"],
+
+["K","L","Q","R","S","M","N","O"],
+
+["B","A","R","C","A","L","E","X"],
+
+["Y","T","P","Q","R","S","V","Z"],
+
+["A","M","O","R","I","M","L","K"]
+
+]
+
+},
+
+{
+
+name:"Level 3 - Defence",
+
+size:8,
+
+words:["KOUNDE","BALDE","ARAUJO","CHRISTENSEN"],
+
+grid:[
