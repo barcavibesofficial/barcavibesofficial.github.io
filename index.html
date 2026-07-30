@@ -68,7 +68,9 @@
 </a>
 
 </section>
-
+<!-- Music Player -->
+<audio id="bgMusic" controls autoplay>
+</audio>
 <footer>
 
 <p>
@@ -93,7 +95,32 @@ This is an independent fan website and is not affiliated with FC Barcelona.
 </footer>
 
 <script src="script.js"></script>
-<script src="script.js"></script>
+
+<script>
+const songs = [
+    "images/anthem.mp3",
+    "images/haneef-night.mp3",
+    "images/lamine-yamal-y-que-fue.mp3",
+    "images/rack-city-glass-teeth.mp3"
+];
+
+let currentSong = 0;
+const player = document.getElementById("bgMusic");
+
+player.src = songs[currentSong];
+player.play();
+
+player.addEventListener("ended", function () {
+    currentSong++;
+
+    if (currentSong >= songs.length) {
+        currentSong = 0;
+    }
+
+    player.src = songs[currentSong];
+    player.play();
+});
+</script>
 
 <!-- Bottom Social Bar -->
 <div class="social-bottom">
