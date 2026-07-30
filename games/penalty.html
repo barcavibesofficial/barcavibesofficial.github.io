@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Penalty Shootout | BarcaVibesOfficial</title>
 
@@ -12,57 +13,100 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-background:#0b3d0b;
-font-family:Arial,sans-serif;
+background:#07132b;
+color:white;
 text-align:center;
-color:#fff;
-overflow-x:hidden;
+overflow:hidden;
+}
+
+/* Floating Barca Logo */
+
+.bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+overflow:hidden;
+pointer-events:none;
+z-index:-1;
+}
+
+.logo{
+position:absolute;
+width:90px;
+opacity:.08;
+animation:float 18s linear infinite;
+}
+
+.l1{top:8%;left:5%;}
+.l2{top:15%;right:10%;}
+.l3{bottom:15%;left:15%;}
+.l4{bottom:12%;right:15%;}
+.l5{top:45%;left:45%;}
+
+@keyframes float{
+
+0%{
+transform:translateY(0) rotate(0deg);
+}
+
+50%{
+transform:translateY(-30px) rotate(10deg);
+}
+
+100%{
+transform:translateY(0) rotate(0deg);
+}
+
 }
 
 h1{
-padding:15px 10px 5px;
-font-size:clamp(30px,5vw,48px);
+padding:20px;
+font-size:40px;
+font-weight:bold;
 }
 
 #score{
-font-size:24px;
+font-size:28px;
 font-weight:bold;
-margin-bottom:10px;
+margin-bottom:15px;
+color:#ffd700;
 }
 
 #field{
 position:relative;
 width:100%;
 height:72vh;
-min-height:450px;
-max-height:750px;
+min-height:500px;
 background:url("../images/stadium.jpg") center/cover no-repeat;
 overflow:hidden;
 }
 
 #goal{
 position:absolute;
+top:20px;
 left:50%;
-top:5%;
 transform:translateX(-50%);
-width:min(340px,70vw);
-height:220px;
+width:340px;
+height:190px;
 background:url("../images/goal.png") center/contain no-repeat;
 z-index:5;
 }
 
 #keeper{
 position:absolute;
+top:55px;
 left:50%;
-top:90px;
 transform:translateX(-50%);
-width:75px;
-height:75px;
+width:90px;
+height:90px;
 background:url("../images/keeper.png") center/contain no-repeat;
-transition:.35s ease;
+transition:.35s;
 z-index:20;
 }
 
@@ -70,12 +114,12 @@ z-index:20;
 position:absolute;
 left:50%;
 bottom:35px;
+width:75px;
+height:75px;
 transform:translateX(-50%);
-width:60px;
-height:60px;
 background:url("../images/ball.png") center/contain no-repeat;
-transition:.65s ease;
-z-index:50;
+transition:left .8s ease,bottom .8s ease,width .8s ease,height .8s ease;
+z-index:30;
 }
 
 #message{
@@ -86,7 +130,7 @@ transform:translateX(-50%);
 font-size:42px;
 font-weight:bold;
 display:none;
-text-shadow:3px 3px 10px #000;
+text-shadow:0 0 12px #000;
 z-index:100;
 }
 
@@ -99,48 +143,57 @@ color:#ff4444;
 }
 
 button{
+
 margin:20px auto;
-width:90%;
-max-width:320px;
-padding:16px;
-font-size:28px;
+padding:16px 40px;
+font-size:26px;
 font-weight:bold;
-border:none;
-border-radius:14px;
 background:#ffcc00;
+border:none;
+border-radius:12px;
 cursor:pointer;
+
 }
 
 button:hover{
+
 background:#ffd633;
+
 }
 
-@media (max-width:768px){
-
-#field{
-height:65vh;
-}
+@media(max-width:768px){
 
 #goal{
+
 width:250px;
-height:170px;
-top:30px;
+height:150px;
+
 }
 
 #keeper{
-width:60px;
-height:60px;
-top:75px;
+
+width:70px;
+height:70px;
+
 }
 
 #ball{
-width:45px;
-height:45px;
-bottom:25px;
+
+width:60px;
+height:60px;
+
 }
 
-#message{
-font-size:34px;
+h1{
+
+font-size:30px;
+
+}
+
+button{
+
+font-size:22px;
+
 }
 
 }
@@ -151,11 +204,23 @@ font-size:34px;
 
 <body>
 
+<div class="bg">
+
+<img src="../images/logo.png" class="logo l1">
+<img src="../images/logo.png" class="logo l2">
+<img src="../images/logo.png" class="logo l3">
+<img src="../images/logo.png" class="logo l4">
+<img src="../images/logo.png" class="logo l5">
+
+</div>
+
 <h1>⚽ Penalty Shootout</h1>
 
 <div id="score">
+
 Score:
 <span id="points">0</span>
+
 </div>
 
 <div id="field">
@@ -170,41 +235,51 @@ Score:
 
 </div>
 
-<button onclick="kickBall()">Shoot</button>
-<script>
+<button onclick="kickBall()">
+SHOOT
+</button>
 
-let score = 0;
+<script>
+  let score = 0;
 let playing = false;
+
+const ball = document.getElementById("ball");
+const keeper = document.getElementById("keeper");
+const message = document.getElementById("message");
+const points = document.getElementById("points");
 
 function kickBall(){
 
 if(playing) return;
 playing = true;
 
-const ball = document.getElementById("ball");
-const keeper = document.getElementById("keeper");
-const message = document.getElementById("message");
-
-// Hide previous message
 message.style.display = "none";
 
 // Random keeper position
 const keeperPos = Math.floor(Math.random()*3);
+const keeperX = ["40%","50%","60%"];
+keeper.style.left = keeperX[keeperPos];
 
-// Goal positions
-const keeperLeft = ["38%","50%","62%"];
-keeper.style.left = keeperLeft[keeperPos];
-
-// Ball target
+// Random shot
 const shot = Math.floor(Math.random()*3);
+const shotX = ["42%","50%","58%"];
 
-const ballX = ["-16vw","0vw","16vw"];
+// Reset ball instantly
+ball.style.transition = "none";
+ball.style.left = "50%";
+ball.style.bottom = "35px";
+ball.style.width = "75px";
+ball.style.height = "75px";
 
-// Realistic ball animation
-ball.style.transition = ".65s ease";
-ball.style.left = ["38%","50%","62%"][shot];
-ball.style.bottom = "65%";
-ball.style.transform = "translateX(-50%) scale(0.35)";
+// Force browser to apply reset
+void ball.offsetWidth;
+
+// Shoot animation
+ball.style.transition = "0.8s ease-in-out";
+ball.style.left = shotX[shot];
+ball.style.bottom = "74%";   // Inside goal
+ball.style.width = "24px";
+ball.style.height = "24px";
 
 // Check result
 setTimeout(function(){
@@ -217,7 +292,7 @@ message.className="saved";
 }else{
 
 score++;
-document.getElementById("points").innerHTML=score;
+points.innerHTML=score;
 
 message.innerHTML="⚽ GOAL!";
 message.className="goal";
@@ -226,29 +301,32 @@ message.className="goal";
 
 message.style.display="block";
 
-},650);
+},800);
 
-// Reset
+// Return ball
 setTimeout(function(){
 
-ball.style.left = "50%";
-ball.style.bottom = "35px";
-ball.style.transform = "translateX(-50%) scale(1)";
+ball.style.transition="0.45s ease";
+
+ball.style.left="50%";
+ball.style.bottom="35px";
+ball.style.width="75px";
+ball.style.height="75px";
 
 keeper.style.left="50%";
 
-message.style.display="none";
-
-playing=false;
-
-// Re-enable animation for next shot
-setTimeout(function(){
-ball.style.transition=".65s ease";
-},20);
-
 },1500);
 
-</script>
+// Hide message and unlock next shot
+setTimeout(function(){
+
+message.style.display="none";
+playing=false;
+
+},1900);
+
 }
+</script>
+
 </body>
 </html>
