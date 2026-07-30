@@ -202,8 +202,9 @@ const ballX = ["-16vw","0vw","16vw"];
 
 // Realistic ball animation
 ball.style.transition = ".65s ease";
-ball.style.transform =
-`translate(calc(-50% + ${ballX[shot]}), -34vh) scale(0.28)`;
+ball.style.left = ["38%","50%","62%"][shot];
+ball.style.bottom = "65%";
+ball.style.transform = "translateX(-50%) scale(0.35)";
 
 // Check result
 setTimeout(function(){
@@ -230,7 +231,9 @@ message.style.display="block";
 // Reset
 setTimeout(function(){
 
-ball.style.transform="translateX(-50%) scale(1)";
+ball.style.left = "50%";
+ball.style.bottom = "35px";
+ball.style.transform = "translateX(-50%) scale(1)";
 
 keeper.style.left="50%";
 
@@ -246,6 +249,6 @@ ball.style.transition=".65s ease";
 },1500);
 
 </script>
-
+}
 </body>
 </html>
