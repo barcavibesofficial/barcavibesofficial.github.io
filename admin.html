@@ -76,11 +76,12 @@ placeholder="Write article here..."></textarea>
 
 <script type="module">
 import { db, storage } from "./firebase.js";
+
 import {
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 import {
   ref,
