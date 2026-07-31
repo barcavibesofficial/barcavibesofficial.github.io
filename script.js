@@ -1,11 +1,13 @@
-import { db } from "./firebase.js";
 import {
-collection,
-addDoc,
-getDocs,
-orderBy,
-query,
-serverTimestamp
+  collection,
+  addDoc,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  deleteDoc,
+  updateDoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 // Publish News
@@ -65,6 +67,14 @@ container.innerHTML += `
 
 <p>${data.content}</p>
 
+<button onclick="editNews('${doc.id}')">
+✏ Edit
+</button>
+
+<button onclick="deleteNews('${doc.id}')">
+🗑 Delete
+</button>
+
 </div>
 
 `;
@@ -114,3 +124,40 @@ async function loadLatestNewsCard() {
 }
 
 window.addEventListener("load", loadLatestNewsCard);
+window.deleteNews = async function(id){
+
+if(confirm("Delete this article?")){
+
+await deleteDoc(doc(db,"news",id));
+
+alert("Article deleted!");
+
+loadNews();
+
+}
+
+}
+window.editNews = async function(id){
+
+const newTitle = prompt("New title:");
+const newCategory = prompt("New category:");
+const newContent = prompt("New content:");
+const newImage = prompt("New image URL:");
+
+if(!newTitle || !newCategory || !newContent || !newImage){
+    return;
+}
+
+await updateDoc(doc(db,"news",id),{
+    title:newTitle,
+    category:newCategory,
+    content:newContent,
+    image:newImage
+});
+
+alert("✏ Article updated!");
+
+loadNews();
+loadLatestNewsCard();
+
+        }
