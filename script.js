@@ -81,23 +81,23 @@ window.addEventListener("load", loadNews);
 const musicPlayer = document.getElementById("barcaPlayer");
 const musicTitle = document.getElementById("songTitle");
 
-const playlist = [
-{
-title: "Barça Anthem",
-src: "images/anthem.mp3"
-},
-{
-title: "Haneef Night",
-src: "images/haneef-night.mp3"
-},
-{
-title: "Lamine Yamal - Y Que Fue",
-src: "images/lamine-yamal-y-que-fue.mp3"
-},
-{
-title: "Rack City Glass Teeth",
-src: "images/rack-city-glass-teeth.mp3"
-}
+const songs = [
+  {
+    title: "Barca Anthem",
+    file: "images/anthem.mp3"
+  },
+  {
+    title: "Haneef Night",
+    file: "images/haneef-night.mp3"
+  },
+  {
+    title: "Lamine Yamal - Y Que Fue",
+    file: "images/lamine-yamal-y-que-fue.mp3"
+  },
+  {
+    title: "Rack City Glass Teeth",
+    file: "images/rack-city-glass-teeth.mp3"
+  }
 ];
 
 let currentTrack = 0;
