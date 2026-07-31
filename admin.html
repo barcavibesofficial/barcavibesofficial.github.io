@@ -48,9 +48,9 @@ placeholder="News title">
 </select>
 
 
-<input type="file"
-id="newsImageFile"
-accept="image/*">
+<input
+id="newsImage"
+placeholder="Image URL">
 
 
 <textarea id="newsContent"
@@ -75,7 +75,7 @@ placeholder="Write article here..."></textarea>
 
 
 <script type="module">
-import { db, storage } from "./firebase.js";
+import { db } from "./firebase.js";
 
 import {
   collection,
@@ -83,27 +83,11 @@ import {
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
-
 window.publishNews = async function () {
   try {
     let title = document.getElementById("newsTitle").value;
     let category = document.getElementById("newsCategory").value;
-    const file = document.getElementById("newsImageFile").files[0];
-
-let image = "";
-
-if (file) {
-    const imageRef = ref(storage, "news/" + Date.now() + "_" + file.name);
-
-    await uploadBytes(imageRef, file);
-
-    image = await getDownloadURL(imageRef);
-}
+    let image = document.getElementById("newsImage").value;
     let content = document.getElementById("newsContent").value;
 
     if (!title || !content) {
@@ -122,7 +106,7 @@ if (file) {
     alert("✅ News Published Successfully!");
 
     document.getElementById("newsTitle").value = "";
-    document.getElementById("newsImageFile").value = "";
+    document.getElementById("newsImage").value = "";
     document.getElementById("newsContent").value = "";
 
   } catch (err) {
