@@ -52,7 +52,7 @@
 
 <section class="preview">
 
-<a href="news.html" class="card">
+<a href="news.html" class="card"></a>
 
 <h2>📰 Latest News</h2>
 
@@ -103,34 +103,8 @@ This is an independent fan website and is not affiliated with FC Barcelona.
 
 </footer>
 
-<script src="script.js"></script>
-<script type="module">
-import { db } from "./firebase.js";
+<script type="module" src="script.js"></script>
 
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
-async function loadLatestNews() {
-
-  const snapshot = await getDocs(
-    query(collection(db, "news"), orderBy("created", "desc"))
-  );
-
-  if (snapshot.empty) return;
-
-  const data = snapshot.docs[0].data();
-
-  document.getElementById("latestTitle").textContent = data.title;
-  document.getElementById("latestText").textContent =
-    data.content.substring(0, 120) + "...";
-}
-
-loadLatestNews();
-</script>
 
 <!-- Bottom Social Bar -->
 <div class="social-bottom">
