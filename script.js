@@ -74,3 +74,43 @@ container.innerHTML += `
 };
 
 window.addEventListener("load", loadNews);
+// ===========================
+// Latest News Card (Homepage)
+// ===========================
+
+async function loadLatestNewsCard() {
+
+    const latestTitle = document.getElementById("latestTitle");
+    const latestText = document.getElementById("latestText");
+
+    if (!latestTitle || !latestText) return;
+
+    const q = query(
+        collection(db, "news"),
+        orderBy("created", "desc")
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (!snapshot.empty) {
+
+        const data = snapshot.docs[0].data();
+
+        latestTitle.textContent = data.title;
+
+        latestText.textContent =
+            data.content.length > 100
+                ? data.content.substring(0,100) + "..."
+                : data.content;
+
+    } else {
+
+        latestTitle.textContent = "No News Yet";
+
+        latestText.textContent = "Publish your first article.";
+
+    }
+
+}
+
+window.addEventListener("load", loadLatestNewsCard);
