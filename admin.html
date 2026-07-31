@@ -75,19 +75,34 @@ placeholder="Write article here..."></textarea>
 
 
 <script type="module">
-import { db } from "./firebase.js";
+import { db, storage } from "./firebase.js";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
 import {
-  collection,
-  addDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+  ref,
+  uploadBytes,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
 window.publishNews = async function () {
   try {
     let title = document.getElementById("newsTitle").value;
     let category = document.getElementById("newsCategory").value;
-    let image = document.getElementById("newsImage").value;
+    const file = document.getElementById("newsImageFile").files[0];
+
+let image = "";
+
+if (file) {
+    const imageRef = ref(storage, "news/" + Date.now() + "_" + file.name);
+
+    await uploadBytes(imageRef, file);
+
+    image = await getDownloadURL(imageRef);
+}
     let content = document.getElementById("newsContent").value;
 
     if (!title || !content) {
@@ -106,7 +121,7 @@ window.publishNews = async function () {
     alert("✅ News Published Successfully!");
 
     document.getElementById("newsTitle").value = "";
-    document.getElementById("newsImage").value = "";
+    document.getElementById("newsImageFile").value = "";
     document.getElementById("newsContent").value = "";
 
   } catch (err) {
