@@ -46,6 +46,16 @@ const container = document.getElementById("newsContainer");
 
 if (!container) return;
 
+container.innerHTML = "";
+
+const q = query(collection(db, "news"), orderBy("created", "desc"));
+
+const snapshot = await getDocs(q);
+
+snapshot.forEach(doc => {
+
+const data = doc.data();
+
 container.innerHTML += `
 
 <div class="news-card">
