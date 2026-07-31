@@ -74,16 +74,21 @@ Loading latest article...
 <p>Wallpapers, match photos and fan uploads.</p>
 </a>
 
-</section>
-<!-- Music Player -->
 <section class="music-player">
 
 <h2>🎵 Barca Music Player</h2>
 
-<audio controls>
-    <source src="images/anthem.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+<h3 id="songTitle">Barça Anthem</h3>
+
+<audio id="barcaPlayer" controls></audio>
+
+<div class="music-buttons">
+
+<button onclick="prevSong()">⏮ Prev</button>
+
+<button onclick="nextSong()">⏭ Next</button>
+
+</div>
 
 </section>
 <footer>
