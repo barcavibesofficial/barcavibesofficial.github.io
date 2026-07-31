@@ -48,8 +48,9 @@ placeholder="News title">
 </select>
 
 
-<input id="newsImage"
-placeholder="Image URL">
+<input type="file"
+id="newsImageFile"
+accept="image/*">
 
 
 <textarea id="newsContent"
@@ -59,6 +60,12 @@ placeholder="Write article here..."></textarea>
 <button onclick="publishNews()">
 🚀 Publish Article
 </button>
+
+<hr>
+
+<h2>🛠 Manage Articles</h2>
+
+<div id="adminNewsList"></div>
 
 
 </div>
