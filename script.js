@@ -46,16 +46,6 @@ const container = document.getElementById("newsContainer");
 
 if (!container) return;
 
-container.innerHTML = "";
-
-const q = query(collection(db, "news"), orderBy("created", "desc"));
-
-const snapshot = await getDocs(q);
-
-snapshot.forEach(doc => {
-
-const data = doc.data();
-
 container.innerHTML += `
 
 <div class="news-card">
@@ -67,14 +57,6 @@ container.innerHTML += `
 <p><strong>${data.category}</strong></p>
 
 <p>${data.content}</p>
-
-<button onclick="editNews('${doc.id}')">
-✏ Edit
-</button>
-
-<button onclick="deleteNews('${doc.id}')">
-🗑 Delete
-</button>
 
 </div>
 
