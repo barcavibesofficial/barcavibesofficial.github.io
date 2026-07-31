@@ -74,3 +74,70 @@ container.innerHTML += `
 };
 
 window.addEventListener("load", loadNews);
+// ==============================
+// Barca Music Playlist
+// ==============================
+
+const musicPlayer = document.getElementById("barcaPlayer");
+const musicTitle = document.getElementById("songTitle");
+
+const playlist = [
+{
+title: "Barça Anthem",
+src: "images/anthem.mp3"
+},
+{
+title: "Haneef Night",
+src: "images/haneef-night.mp3"
+},
+{
+title: "Lamine Yamal - Y Que Fue",
+src: "images/lamine-yamal-y-que-fue.mp3"
+},
+{
+title: "Rack City Glass Teeth",
+src: "images/rack-city-glass-teeth.mp3"
+}
+];
+
+let currentTrack = 0;
+
+if (musicPlayer && musicTitle) {
+
+loadTrack(currentTrack);
+
+musicPlayer.addEventListener("ended", nextSong);
+
+}
+
+function loadTrack(index) {
+
+musicPlayer.src = playlist[index].src;
+musicTitle.textContent = playlist[index].title;
+musicPlayer.load();
+
+}
+
+window.nextSong = function () {
+
+currentTrack++;
+
+if (currentTrack >= playlist.length)
+currentTrack = 0;
+
+loadTrack(currentTrack);
+musicPlayer.play();
+
+};
+
+window.prevSong = function () {
+
+currentTrack--;
+
+if (currentTrack < 0)
+currentTrack = playlist.length - 1;
+
+loadTrack(currentTrack);
+musicPlayer.play();
+
+};
