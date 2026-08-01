@@ -9,6 +9,12 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#A50044">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 </head>
 
 <body>
@@ -118,6 +124,14 @@ This is an independent fan website and is not affiliated with FC Barcelona.
   </a>
 
 </div>
-
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("service-worker.js")
+      .then((reg) => console.log("Service Worker Registered", reg))
+      .catch((err) => console.log("Service Worker Registration Failed", err));
+  });
+}
+</script>
 </body>
 </html>
