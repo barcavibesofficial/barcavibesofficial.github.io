@@ -754,3 +754,72 @@ color:#000;
 font-weight:bold;
 
 }
+/* ===== Animated Barca Logo Background ===== */
+
+.player{
+    position:relative;
+    overflow:hidden;
+}
+
+.player::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        url("images/bvo-music-logo.png"),
+        url("images/bvo-music-logo.png"),
+        url("images/bvo-music-logo.png"),
+        url("images/bvo-music-logo.png");
+    background-repeat:no-repeat;
+    background-size:90px,70px,110px,80px;
+    background-position:
+        8% 15%,
+        88% 20%,
+        18% 82%,
+        82% 78%;
+    opacity:.08;
+    animation:logoMove 18s ease-in-out infinite alternate;
+    z-index:0;
+}
+
+.player::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        135deg,
+        rgba(0,53,128,.35),
+        rgba(120,0,40,.35)
+    );
+    animation:gradientMove 8s linear infinite;
+    z-index:0;
+}
+
+.player>*{
+    position:relative;
+    z-index:2;
+}
+
+@keyframes logoMove{
+    0%{
+        transform:rotate(0deg) scale(1);
+    }
+    50%{
+        transform:rotate(8deg) scale(1.1);
+    }
+    100%{
+        transform:rotate(-8deg) scale(1);
+    }
+}
+
+@keyframes gradientMove{
+    0%{
+        filter:hue-rotate(0deg);
+    }
+    50%{
+        filter:hue-rotate(20deg);
+    }
+    100%{
+        filter:hue-rotate(0deg);
+    }
+}
