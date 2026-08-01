@@ -3,203 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barca Music | BarcaVibesOfficial</title>
+
+<title>Barca Music</title>
 
 <link rel="stylesheet" href="style.css">
 
-<style>
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#00152d,#003366,#6a003a);
-    color:white;
-}
-
-.music-page{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
-
-.player{
-    width:360px;
-    max-width:95%;
-    background:rgba(8,20,45,.9);
-    border-radius:25px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0 0 30px rgba(0,170,255,.25);
-}
-
-.logo{
-    width:110px;
-    height:110px;
-    object-fit:contain;
-    margin:auto;
-    display:block;
-    animation:spin 18s linear infinite;
-}
-
-@keyframes spin{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
-h2{
-margin:15px 0 5px;
-color:#ffc107;
-}
-
-.artist{
-color:#ddd;
-margin-bottom:20px;
-}
-
-#progress{
-width:100%;
-}
-
-.controls{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:20px;
-margin:20px 0;
-}
-
-.controls button{
-width:55px;
-height:55px;
-border:none;
-border-radius:50%;
-font-size:22px;
-cursor:pointer;
-background:#ffc107;
-}
-
-.volume{
-width:100%;
-margin-top:15px;
-}
-
-.back{
-display:inline-block;
-margin-top:20px;
-padding:10px 20px;
-background:#ffc107;
-color:#111;
-text-decoration:none;
-border-radius:30px;
-font-weight:bold;
-}
-</style>
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="music-page">
 
-<div class="music-page">
+<header>
+
+<div class="logo">
+🔵🔴 BarcaVibesOfficial
+</div>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="news.html">News</a>
+<a href="matches.html">Matches</a>
+<a href="gallery.html">Gallery</a>
+<a href="music.html" class="active">Music</a>
+</nav>
+
+</header>
+
+<div class="music-container">
 
 <div class="player">
 
-<img src="https://barcavibesofficial.github.io/images/bvo-music-logo.png" class="logo">
+<div class="disc">
 
-<h2 id="title">Barça Anthem</h2>
+<img
+id="cover"
+src="images/bvo-music-logo.png"
+alt="Barca Music">
 
-<div class="artist">BarcaVibesOfficial Music</div>
+</div>
 
-<audio id="audio" src="music/barca-anthem.mp3"></audio>
+<h2 id="title">
+Anthem
+</h2>
 
-<input type="range" id="progress" value="0">
+<p id="artist">
+BarcaVibesOfficial
+</p>
+
+<audio id="audio"></audio>
+
+<div class="progress-container">
+
+<span id="current">
+0:00
+</span>
+
+<input
+type="range"
+id="progress"
+value="0"
+min="0"
+max="100">
+
+<span id="duration">
+0:00
+</span>
+
+</div>
 
 <div class="controls">
 
-<button onclick="previousSong()">⏮</button>
+<button id="prev">
+⏮
+</button>
 
-<button onclick="playPause()" id="playBtn">▶</button>
+<button id="play">
+▶️
+</button>
 
-<button onclick="nextSong()">⏭</button>
+<button id="next">
+⏭
+</button>
 
 </div>
+
+<div class="volume">
+
+🔊
 
 <input
 type="range"
 id="volume"
-class="volume"
 min="0"
 max="1"
 step="0.01"
 value="1">
 
-<a href="index.html" class="back">🏠 Back Home</a>
+</div>
+
+</div>
+
+<div class="playlist">
+
+<h3>Playlist</h3>
+
+<ul id="playlist">
+
+<li data-index="0">
+🎵 Anthem
+</li>
+
+<li data-index="1">
+🌙 Haneef Night
+</li>
+
+<li data-index="2">
+⭐ Lamine Yamal Y Que Fue
+</li>
+
+<li data-index="3">
+🔥 Rack City Glass Teeth
+</li>
+
+</ul>
 
 </div>
 
 </div>
 
-<script>
-
-const audio=document.getElementById("audio");
-
-const progress=document.getElementById("progress");
-
-const playBtn=document.getElementById("playBtn");
-
-const volume=document.getElementById("volume");
-
-function playPause(){
-
-if(audio.paused){
-
-audio.play();
-
-playBtn.innerHTML="⏸";
-
-}else{
-
-audio.pause();
-
-playBtn.innerHTML="▶";
-
-}
-
-}
-
-audio.addEventListener("timeupdate",()=>{
-
-progress.max=audio.duration||0;
-
-progress.value=audio.currentTime;
-
-});
-
-progress.oninput=()=>{
-
-audio.currentTime=progress.value;
-
-};
-
-volume.oninput=()=>{
-
-audio.volume=volume.value;
-
-};
-
-function previousSong(){
-
-alert("Previous song");
-
-}
-
-function nextSong(){
-
-alert("Next song");
-
-}
-
-</script>
+<script src="music.js"></script>
 
 </body>
 </html>
