@@ -211,7 +211,49 @@ list.innerHTML+=`
 });
 
 }
+async function loadMatches() {
 
+  const list = document.getElementById("adminMatchList");
+
+  list.innerHTML = "";
+
+  const snapshot = await getDocs(collection(db, "matches"));
+
+  snapshot.forEach((match) => {
+
+    const data = match.data();
+
+    list.innerHTML += `
+
+    <div style="border:1px solid #444;padding:10px;margin:10px 0;border-radius:10px;">
+
+      <h3>${data.home} vs ${data.away}</h3>
+
+      <p>${data.score}</p>
+
+      <p>${data.date}</p>
+
+      <button onclick="deleteMatch('${match.id}')">
+      🗑 Delete
+      </button>
+
+    </div>
+
+    `;
+
+  });
+
+}
+
+window.deleteMatch = async function(id){
+
+  if(!confirm("Delete this match?")) return;
+
+  await deleteDoc(doc(db,"matches",id));
+
+  loadMatches();
+
+};
 window.deleteArticle=async function(id){
 
 if(!confirm("Delete this article?")) return;
@@ -223,6 +265,7 @@ loadArticles();
 }
 
 loadArticles();
+loadMatches();
 
 </script>
 
