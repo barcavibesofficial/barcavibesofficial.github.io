@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Barca Vibes Official Admin</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <header class="page-header">
-
 <h1>🔵🔴 Barca Vibes Official</h1>
-
 <p>Admin Dashboard</p>
-
 <a href="index.html" class="btn">🏠 Home</a>
-
 </header>
-
 
 <section class="container">
 
@@ -30,32 +23,24 @@
 
 <h2>📰 Publish News</h2>
 
-
-<input id="newsTitle" 
+<input
+id="newsTitle"
 placeholder="News title">
 
-
 <select id="newsCategory">
-
 <option>Breaking News</option>
-
 <option>Transfer News</option>
-
 <option>Match Update</option>
-
 <option>Club News</option>
-
 </select>
-
 
 <input
 id="newsImage"
 placeholder="Image URL">
 
-
-<textarea id="newsContent"
+<textarea
+id="newsContent"
 placeholder="Write article here..."></textarea>
-
 
 <button onclick="publishNews()">
 🚀 Publish Article
@@ -67,93 +52,112 @@ placeholder="Write article here..."></textarea>
 
 <div id="adminNewsList"></div>
 
-
 </div>
-
 
 </section>
 
-
 <script type="module">
+
 import { db } from "./firebase.js";
 
 import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  getDocs,
-  deleteDoc,
-  doc
+collection,
+addDoc,
+serverTimestamp,
+getDocs,
+deleteDoc,
+doc
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 window.publishNews = async function () {
-  try {
-    let title = document.getElementById("newsTitle").value;
-    let category = document.getElementById("newsCategory").value;
-    let image = document.getElementById("newsImage").value;
-    let content = document.getElementById("newsContent").value;
 
-    if (!title || !content) {
-      alert("Fill title and article");
-      return;
-    }
+try {
 
-    await addDoc(collection(db, "news"), {
-      title,
-      category,
-      image,
-      content,
-      created: serverTimestamp()
-    });
+let title=document.getElementById("newsTitle").value;
+let category=document.getElementById("newsCategory").value;
+let image=document.getElementById("newsImage").value;
+let content=document.getElementById("newsContent").value;
 
-    alert("✅ News Published Successfully!");
-    loadArticles();
-    document.getElementById("newsTitle").value = "";
-    document.getElementById("newsImage").value = "";
-    document.getElementById("newsContent").value = "";
+if(!title || !content){
 
-  } catch (err) {
-    alert("❌ " + err.message);
-    console.error(err);
-  }
-};
-  async function loadArticles() {
-
-    const list = document.getElementById("adminNewsList");
-    list.innerHTML = "";
-
-    const snapshot = await getDocs(collection(db, "news"));
-
-    snapshot.forEach((article) => {
-
-        const data = article.data();
-
-        list.innerHTML += `
-        <div style="border:1px solid #444;padding:10px;margin:10px 0;border-radius:8px;">
-            <h3>${data.title}</h3>
-            <p>${data.category}</p>
-
-            <button onclick="deleteArticle('${article.id}')">
-                🗑 Delete
-            </button>
-        </div>
-        `;
-
-    });
+alert("Fill title and article");
+return;
 
 }
 
-window.deleteArticle = async function(id) {
+await addDoc(collection(db,"news"),{
 
-    if (!confirm("Delete this article?")) return;
+title,
+category,
+image,
+content,
+created:serverTimestamp()
 
-    await deleteDoc(doc(db, "news", id));
+});
 
-    loadArticles();
+alert("✅ News Published Successfully!");
+
+loadArticles();
+
+document.getElementById("newsTitle").value="";
+document.getElementById("newsImage").value="";
+document.getElementById("newsContent").value="";
+
+}catch(err){
+
+alert("❌ "+err.message);
+console.error(err);
+
+}
+
+};
+
+async function loadArticles(){
+
+const list=document.getElementById("adminNewsList");
+
+list.innerHTML="";
+
+const snapshot=await getDocs(collection(db,"news"));
+
+snapshot.forEach((article)=>{
+
+const data=article.data();
+
+list.innerHTML+=`
+
+<div style="border:1px solid #444;padding:10px;margin:10px 0;border-radius:10px;">
+
+<h3>${data.title}</h3>
+
+<p>${data.category}</p>
+
+<button onclick="deleteArticle('${article.id}')">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+window.deleteArticle=async function(id){
+
+if(!confirm("Delete this article?")) return;
+
+await deleteDoc(doc(db,"news",id));
+
+loadArticles();
 
 }
 
 loadArticles();
+
 </script>
 
 </body>
