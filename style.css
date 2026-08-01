@@ -855,3 +855,36 @@ opacity:.08;
 }
 
 }
+.download-section{
+text-align:center;
+padding:50px 20px;
+background:#081b33;
+color:#fff;
+}
+
+.download-buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.android-btn,
+.ios-btn{
+display:inline-block;
+padding:15px 28px;
+border-radius:12px;
+text-decoration:none;
+font-size:18px;
+font-weight:bold;
+}
+
+.android-btn{
+background:#00c853;
+color:white;
+}
+
+.ios-btn{
+background:#111;
+color:white;
+}
