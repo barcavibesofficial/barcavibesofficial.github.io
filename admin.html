@@ -50,7 +50,38 @@ placeholder="Write article here..."></textarea>
 
 <h2>🛠 Manage Articles</h2>
 
-<div id="adminNewsList"></div>
+  <div id="adminNewsList"></div>
+
+</div>
+
+<!-- MATCH MANAGER -->
+<div class="card">
+
+<h2>⚽ Manage Matches</h2>
+
+<input
+id="matchHome"
+placeholder="Home Team">
+
+<input
+id="matchAway"
+placeholder="Away Team">
+
+<input
+id="matchScore"
+placeholder="Score (Example: 3-1 or VS)">
+
+<input
+id="matchDate"
+placeholder="Date (Example: 5 Aug 2026)">
+
+<button onclick="publishMatch()">
+⚽ Publish Match
+</button>
+
+<hr>
+
+<div id="adminMatchList"></div>
 
 </div>
 
@@ -111,7 +142,42 @@ console.error(err);
 }
 
 };
+window.publishMatch = async function () {
 
+  try {
+
+    let home = document.getElementById("matchHome").value;
+    let away = document.getElementById("matchAway").value;
+    let score = document.getElementById("matchScore").value;
+    let date = document.getElementById("matchDate").value;
+
+    if (!home || !away) {
+      alert("Fill all match details");
+      return;
+    }
+
+    await addDoc(collection(db, "matches"), {
+      home,
+      away,
+      score,
+      date,
+      created: serverTimestamp()
+    });
+
+    alert("✅ Match Published!");
+
+    document.getElementById("matchHome").value = "";
+    document.getElementById("matchAway").value = "";
+    document.getElementById("matchScore").value = "";
+    document.getElementById("matchDate").value = "";
+
+    loadMatches();
+
+  } catch (err) {
+    alert(err.message);
+  }
+
+};
 async function loadArticles(){
 
 const list=document.getElementById("adminNewsList");
