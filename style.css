@@ -754,72 +754,104 @@ color:#000;
 font-weight:bold;
 
 }
-/* ===== Animated Barca Logo Background ===== */
+/* ===========================
+   BVO Animated Player Background
+=========================== */
 
 .player{
     position:relative;
     overflow:hidden;
+    backdrop-filter:blur(18px);
 }
 
-.player::before{
-    content:"";
+/* Background logos */
+.bg-logos{
     position:absolute;
     inset:0;
-    background-image:
-        url("images/bvo-music-logo.png"),
-        url("images/bvo-music-logo.png"),
-        url("images/bvo-music-logo.png"),
-        url("images/bvo-music-logo.png");
-    background-repeat:no-repeat;
-    background-size:90px,70px,110px,80px;
-    background-position:
-        8% 15%,
-        88% 20%,
-        18% 82%,
-        82% 78%;
-    opacity:.08;
-    animation:logoMove 18s ease-in-out infinite alternate;
     z-index:0;
+    pointer-events:none;
 }
 
-.player::after{
-    content:"";
+/* Floating logos */
+.bg-logo{
     position:absolute;
-    inset:0;
-    background:linear-gradient(
-        135deg,
-        rgba(0,53,128,.35),
-        rgba(120,0,40,.35)
-    );
-    animation:gradientMove 8s linear infinite;
-    z-index:0;
+    width:130px;
+    opacity:.12;
+    filter:blur(.5px);
+    animation:floatLogo 18s linear infinite;
 }
 
-.player>*{
+.l1{
+    top:5%;
+    left:8%;
+    animation-duration:20s;
+}
+
+.l2{
+    top:12%;
+    right:10%;
+    animation-duration:16s;
+    animation-direction:reverse;
+}
+
+.l3{
+    bottom:18%;
+    left:6%;
+    animation-duration:22s;
+}
+
+.l4{
+    bottom:8%;
+    right:8%;
+    animation-duration:17s;
+    animation-direction:reverse;
+}
+
+.l5{
+    top:42%;
+    left:50%;
+    transform:translateX(-50%);
+    animation-duration:19s;
+}
+
+.l6{
+    bottom:38%;
+    right:38%;
+    animation-duration:15s;
+}
+
+/* Keep player content above logos */
+.player>*:not(.bg-logos){
     position:relative;
     z-index:2;
 }
 
-@keyframes logoMove{
-    0%{
-        transform:rotate(0deg) scale(1);
-    }
-    50%{
-        transform:rotate(8deg) scale(1.1);
-    }
-    100%{
-        transform:rotate(-8deg) scale(1);
-    }
+/* Animation */
+@keyframes floatLogo{
+
+0%{
+transform:translate(0,0) rotate(0deg) scale(.8);
+opacity:.08;
 }
 
-@keyframes gradientMove{
-    0%{
-        filter:hue-rotate(0deg);
-    }
-    50%{
-        filter:hue-rotate(20deg);
-    }
-    100%{
-        filter:hue-rotate(0deg);
-    }
+25%{
+transform:translate(25px,-20px) rotate(90deg) scale(1);
+opacity:.16;
+}
+
+50%{
+transform:translate(-20px,25px) rotate(180deg) scale(.85);
+opacity:.10;
+}
+
+75%{
+transform:translate(20px,-10px) rotate(270deg) scale(1.05);
+opacity:.15;
+}
+
+100%{
+transform:translate(0,0) rotate(360deg) scale(.8);
+opacity:.08;
+}
+
 }
