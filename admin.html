@@ -80,7 +80,10 @@ import { db } from "./firebase.js";
 import {
   collection,
   addDoc,
-  serverTimestamp
+  serverTimestamp,
+  getDocs,
+  deleteDoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 window.publishNews = async function () {
@@ -104,7 +107,7 @@ window.publishNews = async function () {
     });
 
     alert("✅ News Published Successfully!");
-
+    loadArticles();
     document.getElementById("newsTitle").value = "";
     document.getElementById("newsImage").value = "";
     document.getElementById("newsContent").value = "";
@@ -114,6 +117,43 @@ window.publishNews = async function () {
     console.error(err);
   }
 };
+  async function loadArticles() {
+
+    const list = document.getElementById("adminNewsList");
+    list.innerHTML = "";
+
+    const snapshot = await getDocs(collection(db, "news"));
+
+    snapshot.forEach((article) => {
+
+        const data = article.data();
+
+        list.innerHTML += `
+        <div style="border:1px solid #444;padding:10px;margin:10px 0;border-radius:8px;">
+            <h3>${data.title}</h3>
+            <p>${data.category}</p>
+
+            <button onclick="deleteArticle('${article.id}')">
+                🗑 Delete
+            </button>
+        </div>
+        `;
+
+    });
+
+}
+
+window.deleteArticle = async function(id) {
+
+    if (!confirm("Delete this article?")) return;
+
+    await deleteDoc(doc(db, "news", id));
+
+    loadArticles();
+
+}
+
+loadArticles();
 </script>
 
 </body>
