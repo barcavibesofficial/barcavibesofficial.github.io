@@ -142,7 +142,32 @@ Independent FC Barcelona fan site. Not affiliated with FC Barcelona.
 </p>
 
 </footer>
+<script>
+const matchDate = new Date("August 23, 2026 23:30:00").getTime();
 
+const timer = setInterval(function () {
+
+    const now = new Date().getTime();
+    const distance = matchDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+        "⏳ " + days + "d " +
+        hours + "h " +
+        minutes + "m " +
+        seconds + "s";
+
+    if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById("countdown").innerHTML = "🔥 Match Started!";
+    }
+
+}, 1000);
+                                          </script>
 <script src="script.js"></script>
 
 </body>
