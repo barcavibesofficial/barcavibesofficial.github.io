@@ -1,42 +1,37 @@
-const API_KEY = "6e65973ffb7e4e4e995cfd15aed8fb1a";
-
-const API_URL = "https://api.football-data.org/v4/competitions/PD/standings";
+const API_URL = "https://api.openligadb.de/getbltable/laliga";
 
 async function loadLaLigaTable() {
+  const tableBody = document.getElementById("laliga-body");
+
   try {
-    const response = await fetch(API_URL, {
-      headers: {
-        "X-Auth-Token": API_KEY
-      }
-    });
+    const response = await fetch(API_URL);
 
     if (!response.ok) {
-      throw new Error("API Error " + response.status);
+      throw new Error("Cannot load table");
     }
 
     const data = await response.json();
 
-    const tableBody = document.getElementById("laliga-body");
     tableBody.innerHTML = "";
 
-    data.standings[0].table.forEach(team => {
+    data.forEach((team, index) => {
       tableBody.innerHTML += `
         <tr>
-          <td>${team.position}</td>
-          <td>${team.team.name}</td>
-          <td>${team.playedGames}</td>
+          <td>${index + 1}</td>
+          <td>${team.teamName}</td>
+          <td>${team.matches}</td>
           <td>${team.won}</td>
           <td>${team.draw}</td>
           <td>${team.lost}</td>
-          <td>${team.goalDifference}</td>
+          <td>${team.goalDiff}</td>
           <td>${team.points}</td>
-        </tr>`;
+        </tr>
+      `;
     });
 
   } catch (error) {
-    document.getElementById("laliga-body").innerHTML =
-        `<tr><td colspan="8">Error: ${error.message}</td></tr>`;
-    console.error(error);
+    tableBody.innerHTML =
+      `<tr><td colspan="8">Error loading table</td></tr>`;
   }
 }
 
