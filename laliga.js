@@ -35,7 +35,7 @@ async function loadLaLigaTable() {
 
   } catch (error) {
     document.getElementById("laliga-body").innerHTML =
-      `<tr><td colspan="8">${error.message}</td></tr>`;
+        `<tr><td colspan="8">Error: ${error.message}</td></tr>`;
     console.error(error);
   }
 }
