@@ -968,3 +968,39 @@ color:white;
     50%{transform:scale(1.05);}
     100%{transform:scale(1);}
 }
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:#10233d;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+th{
+    background:#004aad;
+    color:#fff;
+    padding:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+tr:nth-child(even){
+    background:#0b1b30;
+}
+
+.note{
+    text-align:center;
+    color:#ccc;
+    margin:20px 0;
+   }
