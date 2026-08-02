@@ -931,3 +931,40 @@ color:white;
 .whatsapp-section a:hover{
     background:#1da851;
 }
+/* Match Countdown */
+
+.countdown-section{
+    text-align:center;
+    padding:50px 20px;
+    background:linear-gradient(135deg,#081b33,#004d98,#a50044);
+    color:#fff;
+}
+
+.countdown-card{
+    max-width:600px;
+    margin:auto;
+    background:rgba(255,255,255,.08);
+    border:2px solid rgba(255,255,255,.2);
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 0 20px rgba(255,215,0,.3);
+}
+
+.countdown-card h3{
+    color:#ffd700;
+    font-size:28px;
+}
+
+#countdown{
+    margin-top:20px;
+    font-size:32px;
+    font-weight:bold;
+    color:#00ff99;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
+}
