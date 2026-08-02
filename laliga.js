@@ -10,27 +10,32 @@ async function loadLaLigaTable() {
       }
     });
 
+    if (!response.ok) {
+      throw new Error("API Error " + response.status);
+    }
+
     const data = await response.json();
 
     const tableBody = document.getElementById("laliga-body");
-
     tableBody.innerHTML = "";
 
     data.standings[0].table.forEach(team => {
       tableBody.innerHTML += `
-      <tr>
-        <td>${team.position}</td>
-        <td>${team.team.name}</td>
-        <td>${team.playedGames}</td>
-        <td>${team.won}</td>
-        <td>${team.draw}</td>
-        <td>${team.lost}</td>
-        <td>${team.goalDifference}</td>
-        <td>${team.points}</td>
-      </tr>`;
+        <tr>
+          <td>${team.position}</td>
+          <td>${team.team.name}</td>
+          <td>${team.playedGames}</td>
+          <td>${team.won}</td>
+          <td>${team.draw}</td>
+          <td>${team.lost}</td>
+          <td>${team.goalDifference}</td>
+          <td>${team.points}</td>
+        </tr>`;
     });
 
   } catch (error) {
+    document.getElementById("laliga-body").innerHTML =
+      `<tr><td colspan="8">${error.message}</td></tr>`;
     console.error(error);
   }
 }
